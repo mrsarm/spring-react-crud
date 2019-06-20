@@ -1,3 +1,5 @@
+'use strict';
+
 const React = require('react')
 const ReactDOM = require('react-dom')
 const client = require('./client')
@@ -7,13 +9,13 @@ window.client = client   // To be accessible from browser and debug requests
 class App extends React.Component {
 
   constructor(props) {
-    super(props);
-    this.state = {users: []};
+    super(props)
+    this.state = {users: []}
   }
 
   componentDidMount() {
     client.get('users').then(response => {
-      this.setState({users: response.data._embedded.users});
+      this.setState({users: response.data._embedded.users})
     });
   }
 
