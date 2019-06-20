@@ -19,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import java.util.stream.Stream;
 
 @Component
 @Slf4j
@@ -33,8 +34,12 @@ public class DatabaseLoader implements CommandLineRunner {
 
 	@Override
 	public void run(String... strings) throws Exception {
-		User frodo = new User("Frodo", "Baggins", "ring bearer");
-		log.info("Creating {}", frodo);
-		this.userRepository.save(frodo);
+		Stream.of(
+			new User("Frodo", "Baggins", "ring bearer"),
+			new User("Bilbo", "Baggins", "burglar"),
+			new User("Gandalf", "the Grey", "wizard")
+		).forEach(user -> {
+			log.info("Created {}", this.userRepository.save(user));
+		});
 	}
 }

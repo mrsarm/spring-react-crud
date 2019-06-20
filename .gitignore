@@ -3,6 +3,7 @@ node_modules/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
 !**/src/test/**
+src/main/resources/static/built/
 
 ### STS ###
 .apt_generated
