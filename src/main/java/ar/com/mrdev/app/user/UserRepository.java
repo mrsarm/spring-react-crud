@@ -13,16 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ar.com.mrdev.app;
+package ar.com.mrdev.app.user;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.repository.CrudRepository;
 
-@SpringBootApplication
-public class AppApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(AppApplication.class, args);
-	}
-
+public interface UserRepository extends CrudRepository<User, Long> {
 }

@@ -13,16 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ar.com.mrdev.app;
+package ar.com.mrdev.app.user;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import lombok.Data;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
-@SpringBootApplication
-public class AppApplication {
+@Data
+@Entity
+public class User {
 
-	public static void main(String[] args) {
-		SpringApplication.run(AppApplication.class, args);
+	private @Id @GeneratedValue Long id;
+	private String firstName;
+	private String lastName;
+	private String description;
+
+	public User() {}
+
+	public User(String firstName, String lastName, String description) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.description = description;
 	}
-
 }
