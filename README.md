@@ -4,9 +4,26 @@ React.js and Spring Data REST - CRUD
 CRUD application with security enabled: a PoC with
 ReactJS in the frontend and Spring Data REST in the backend.
 
-Based in the "security" module code here: https://github.com/spring-guides/tut-react-and-spring-data-rest
+> ⚠️ **_NOTE:_**  Work in Progress, there is nothing useful yet.
+
+Based in the source code here: https://github.com/spring-guides/tut-react-and-spring-data-rest ,
+but not yet implemented basic modules.
 
 Guide: https://spring.io/guides/tutorials/react-and-spring-data-rest
+
+The **goal** is to learn better how to use React, and complete the guide but
+improving the original code with the following changes and features:
+
+- [ ] Make it more appealing, using Bootstrap / HTML5, using React components
+      from a 3ty party library, maybe [reactstrap](https://reactstrap.github.io/).
+- [ ] The original application makes a lot of unnecessary requests to only show
+      the paginated results (2 initial requests + 1 request * number of items
+      in the page), that should be narrowed to just one request.
+- [X] Replace the depreacted library [rest.js](https://github.com/cujojs/rest) that
+      also does not support standard promises by a modern HTTP client:
+      [Axios](https://github.com/axios/axios)
+- [X] Add a REST browser for development purpose: HAL Browser
+- [ ] Add more features, specially to handle users ...
 
 
 Usage
