@@ -35,9 +35,11 @@ public class DatabaseLoader implements CommandLineRunner {
 	@Override
 	public void run(String... strings) throws Exception {
 		Stream.of(
-			new User("Frodo", "Baggins", "ring bearer"),
-			new User("Bilbo", "Baggins", "burglar"),
-			new User("Gandalf", "the Grey", "wizard")
+			new User("Frodo", "Baggins", "Ring bearer"),
+			new User("Bilbo", "Baggins", "Burglar"),
+			new User("Gandalf", "the Grey", "Wizard"),
+			new User("Legolas", "Greenleaf", "Elf prince"),
+			new User("Sam", "Gamgee", "The gardener")
 		).forEach(user -> {
 			log.info("Created {}", this.userRepository.save(user));
 		});
