@@ -23,6 +23,7 @@ improving the original code with the following changes and features:
       also does not support standard promises by a modern HTTP client:
       [Axios](https://github.com/axios/axios)
 - [X] Add a REST browser for development purpose: HAL Browser
+- [ ] Add validations and errors handling
 - [ ] Add more features, specially to handle users ...
 
 
