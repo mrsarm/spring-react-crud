@@ -23,6 +23,8 @@ improving the original code with the following changes and features:
       also does not support standard promises by a modern HTTP client:
       [Axios](https://github.com/axios/axios)
 - [X] Add a REST browser for development purpose: HAL Browser
+- [ ] The entity `Employee` in the original guide is the entity `User` here (done),
+      that it will be merged with the `Manager` entity (in progress)
 - [ ] Add validations and errors handling
 - [ ] Add more features, specially to handle users ...
 
