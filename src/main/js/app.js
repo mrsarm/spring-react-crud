@@ -58,9 +58,12 @@ class App extends React.Component {
     }).then(response => {
       return this.loadFromServer(this.state.pageSize)
     }).catch(error => {
-      if (error.response.status === 412) {
-        alert('DENIED: Unable to update ' +
-          user._links.self.href + '. Your copy is stale.')
+      if (error.response.status == 403) {
+          alert('ACCESS DENIED: You are not authorized to update ' +
+            user._links.self.href);
+      } else if (error.response.status == 412) {
+          alert('DENIED: Unable to update ' + user._links.self.href +
+            '. Your copy is stale.');
       } else {
         //TODO Improve error handling!
         console.error("Unknown error updating user -", error)
@@ -72,7 +75,16 @@ class App extends React.Component {
   onDelete(user) {
     client({method: 'delete', url: user._links.self.href}).then(response => {
       this.loadFromServer(this.state.pageSize)
-    });
+    }).catch(error => {
+      if (error.response.status == 403) {
+        alert('ACCESS DENIED: You are not authorized to delete ' +
+          user._links.self.href);
+      } else {
+        //TODO Improve error handling!
+        console.error("Unknown error deleting user -", error)
+        alert('An Error ocurred')
+      }
+    })
   }
 
   componentDidMount() {

@@ -15,25 +15,47 @@
  */
 package ar.com.mrdev.app.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.ToString;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Data
+@ToString(exclude = "password")
 @Entity
 public class User {
+
+	//TODO Need a Salt code for production
+	public static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
 
 	private @Id @GeneratedValue Long id;
 	private String firstName;
 	private String lastName;
 	private String description;
 
+	private String email;
+
+	private @JsonIgnore
+	String password;
+
+	private String[] roles;
+
 	public User() {}
 
-	public User(String firstName, String lastName, String description) {
+	public User(String email, String firstName, String lastName, String description, String password, String... roles) {
+		this.email = email;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.description = description;
+		this.setPassword(password);
+		this.roles = roles;
+	}
+
+	public void setPassword(String password) {
+		this.password = PASSWORD_ENCODER.encode(password);
 	}
 }
