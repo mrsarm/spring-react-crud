@@ -57,7 +57,7 @@ to the API with http://localhost:8080/api/
 
 One of the user to access the app with privileged access is `frodo@local`,
 and the password `admin`. Check the initial dataset in
-the [DatabaseLoader.java](src/main/java/ar/com/mrdev/app/user/DatabaseLoader.java)
+the [DatabaseLoader.java](src/main/java/ar/com/mrdev/app/user/DatabaseLoader.java#L46-L50)
 file.
 
 If you access the API through the HAL browser, it will required to sign-in
