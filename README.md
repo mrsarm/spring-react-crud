@@ -31,6 +31,18 @@ improving the original code with the following changes and features:
 - [ ] Add more features, specially to handle users ...
 
 
+Requirements
+------------
+
+- **JDK 8+**
+- **Maven 3+**, or you can use the script `./mvnw` instead that it will install
+  Maven 3.6 in the user space automatically if the required version isn't there
+
+To build the web assets the project uses **Node.js**, **Webpack**, ...
+but all of them are installed and triggered by Maven automatically
+in the user space.
+
+
 Usage
 -----
 
