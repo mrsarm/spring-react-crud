@@ -1,13 +1,32 @@
 'use strict';
 
-const React = require('react')
-const ReactDOM = require('react-dom')
-const client = require('./client')
+import React from 'react'
+import ReactDOM from 'react-dom'
+import client from './client'
+import { Button, Container, Table,
+         Pagination, PaginationItem, PaginationLink,
+         Form, FormGroup, Label, Input} from 'reactstrap'
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
+
 
 window.client = client   // To be accessible from browser and debug requests
 
 
 class App extends React.Component {
+  render() {
+    return (
+      <Router>
+        <Switch>
+          <Route path="/" exact={true} component={Home}/>
+          <Route path="/about" exact={true} component={About}/>
+        </Switch>
+      </Router>
+    )
+  }
+}
+
+
+class Home extends React.Component {
 
   constructor(props) {
     super(props)
@@ -104,13 +123,17 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <CreateDialog onCreate={this.onCreate}/>
-        <UserList users={this.state.users}
-                  links={this.state.links}
-                  pageSize={this.state.pageSize}
-                  onNavigate={this.onNavigate}
-                  onUpdate={this.onUpdate}
-                  onDelete={this.onDelete}/>
+        <Container fluid>
+          <div className="float-right">
+            <CreateDialog onCreate={this.onCreate}/>
+          </div>
+          <UserList users={this.state.users}
+                    links={this.state.links}
+                    pageSize={this.state.pageSize}
+                    onNavigate={this.onNavigate}
+                    onUpdate={this.onUpdate}
+                    onDelete={this.onDelete}/>
+        </Container>
       </div>
     )
   }
@@ -267,35 +290,55 @@ class UserList extends React.Component {
 
     const navLinks = []
     if ("first" in this.props.links) {
-      navLinks.push(<button key="first" onClick={this.handleNavFirst}>&lt;&lt;</button>)
+      navLinks.push(
+        <PaginationItem key="first">
+        <PaginationLink first onClick={this.handleNavFirst} />
+        </PaginationItem>
+      )
     }
     if ("prev" in this.props.links) {
-      navLinks.push(<button key="prev" onClick={this.handleNavPrev}>&lt;</button>)
+      navLinks.push(
+        <PaginationItem key="previous">
+          <PaginationLink previous onClick={this.handleNavPrev} />
+        </PaginationItem>
+      )
     }
     if ("next" in this.props.links) {
-      navLinks.push(<button key="next" onClick={this.handleNavNext}>&gt;</button>)
+      navLinks.push(
+        <PaginationItem key="next">
+          <PaginationLink next onClick={this.handleNavNext} />
+        </PaginationItem>
+      )
     }
     if ("last" in this.props.links) {
-      navLinks.push(<button key="last" onClick={this.handleNavLast}>&gt;&gt;</button>)
+      navLinks.push(
+        <PaginationItem key="last">
+          <PaginationLink last onClick={this.handleNavLast} />
+        </PaginationItem>
+      )
     }
 
     return (
       <div>
-        <table>
+        <Table className="mt-4">
+          <thead>
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Notes</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
           <tbody>
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Notes</th>
-            <th></th>
-            <th></th>
-          </tr>
-          {users}
+            {users}
           </tbody>
-        </table>
-        <div>
-          {navLinks}
-        </div>
+        </Table>
+        {navLinks.length > 0 &&
+          <Pagination>
+            {navLinks}
+          </Pagination>
+        }
       </div>
     )
   }
@@ -315,7 +358,7 @@ class User extends React.Component {
   render() {
     return (
       <tr>
-        <td>{this.props.user.firstName}</td>
+        <td style={{whiteSpace: 'nowrap'}}>{this.props.user.firstName}</td>
         <td>{this.props.user.lastName}</td>
         <td>{this.props.user.description}</td>
         <td>
@@ -325,6 +368,32 @@ class User extends React.Component {
           <button onClick={this.handleDelete}>Delete</button>
         </td>
       </tr>
+    )
+  }
+}
+
+
+class About extends React.Component {
+  render() {
+    return (
+      <Container fluid>
+        <h2>React.js and Spring Data REST - CRUD</h2>
+        <p>
+          CRUD application with security enabled: a PoC with
+          ReactJS in the frontend and Spring Data REST in the backend.
+        </p>
+        <h4>Authors</h4>
+        <ul>
+          <li><a href="mailto:mrsarm@gmail.com">Mariano Ruiz</a></li>
+        </ul>
+        <h4>Original Authors</h4>
+        <ul>
+          <li>Greg Turnquist <em>(Pivotal)</em></li>
+          <li><em>Pivotal committers and other contributors</em></li>
+        </ul>
+        <address>2015-2019  |  Apache-2.0</address>
+        <Button color="link"><Link to="/">← Back to Users</Link></Button>
+      </Container>
     )
   }
 }

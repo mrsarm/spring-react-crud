@@ -13,8 +13,8 @@ Guide: https://spring.io/guides/tutorials/react-and-spring-data-rest
 The **goal** is to learn better how to use React, and complete the guide but
 improving the original code with the following changes and features:
 
-- [ ] Make it more appealing, using Bootstrap / HTML5, using React components
-      from a 3ty party library, maybe [reactstrap](https://reactstrap.github.io/).
+- [ ] Make it more appealing, using Bootstrap / HTML5,
+      ([reactstrap](https://reactstrap.github.io/), *in progress*)
 - [X] The original application makes a lot of unnecessary requests to only show
       the paginated results (2 initial requests + 1 request * number of items
       in the page), that should be narrowed to just one request.
