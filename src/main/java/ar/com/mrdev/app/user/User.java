@@ -15,7 +15,8 @@
  */
 package ar.com.mrdev.app.user;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+//import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -29,7 +30,6 @@ import javax.persistence.Id;
 @Entity
 public class User {
 
-	//TODO Need a Salt code for production
 	public static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
 
 	private @Id @GeneratedValue Long id;
@@ -39,10 +39,10 @@ public class User {
 
 	private String email;
 
-	private @JsonIgnore
+	private @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	String password;
 
-	private String[] roles;
+	private String[] roles = new String[] {};
 
 	public User() {}
 

@@ -40,6 +40,14 @@ class CreateDialog extends React.Component {
 
             <form>
               <p>
+                <label htmlFor="firstName">Email</label>
+                <input type="text" placeholder="Email" ref="email" className="field"/>
+              </p>
+              <p>
+                <label htmlFor="firstName">Password</label>
+                <input type="password" placeholder="Password" ref="password" className="field"/>
+              </p>
+              <p>
                 <label htmlFor="firstName">First name</label>
                 <input type="text" placeholder="First Name" ref="firstName" className="field"/>
               </p>

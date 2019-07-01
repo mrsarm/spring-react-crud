@@ -19,6 +19,7 @@ class User extends React.Component {
       <tr>
         <td style={{whiteSpace: 'nowrap'}}>{this.props.user.firstName}</td>
         <td>{this.props.user.lastName}</td>
+        <td>{this.props.user.email}</td>
         <td>{this.props.user.description}</td>
         <td>
           <UpdateDialog user={this.props.user} onUpdate={this.props.onUpdate}/>

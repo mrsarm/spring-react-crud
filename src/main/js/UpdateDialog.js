@@ -34,6 +34,11 @@ class UpdateDialog extends React.Component {
 
             <form>
               <p>
+                <label htmlFor="firstName">Email</label>
+                <input type="text" placeholder="Email" ref="email" className="field"
+                       defaultValue={this.props.user.email}/>
+              </p>
+              <p>
                 <label htmlFor="firstName">First name</label>
                 <input type="text" placeholder="First Name" ref="firstName" className="field"
                        defaultValue={this.props.user.firstName}/>
