@@ -44,7 +44,7 @@ public class SpringDataJpaUserDetailsService implements UserDetailsService {
 			return new User(user.getEmail(), user.getPassword(),
 				AuthorityUtils.createAuthorityList(user.getRoles()));
 		}
-		log.info("Bad credentials, username={}", name);
+		log.info("User not found, username={}", name);
 		throw new UsernameNotFoundException("User not found");
 	}
 }
