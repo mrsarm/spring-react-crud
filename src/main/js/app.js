@@ -8,7 +8,7 @@ import { Button, Container, Table,
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
 import client from './client'
 import UserList from './UserList'
-import CreateDialog from './CreateDialog'
+import CreateUser from './CreateUser'
 import About from './About'
 
 
@@ -22,6 +22,7 @@ class App extends React.Component {
         <Switch>
           <Route path="/" exact={true} component={Home}/>
           <Route path="/about" exact={true} component={About}/>
+          <Route path="/users/create" exact={true} component={CreateUser}/>
         </Switch>
       </Router>
     )
@@ -34,7 +35,6 @@ class Home extends React.Component {
   constructor(props) {
     super(props)
     this.state = {users: [], pageSize: 2, links: []}
-    this.onCreate = this.onCreate.bind(this)
     this.onUpdate = this.onUpdate.bind(this)
     this.onDelete = this.onDelete.bind(this)
     this.onNavigate = this.onNavigate.bind(this)
@@ -48,23 +48,6 @@ class Home extends React.Component {
         pageSize: pageSize
       })
       return response
-    })
-  }
-
-  onCreate(newUser) {
-    return client({
-      method: 'post',
-      url: 'users',
-      data: newUser,
-      headers: {'Content-Type': 'application/json'}
-    }).then(response => {
-      return this.loadFromServer(this.state.pageSize)
-    }).then(response => {
-      if (typeof response.data._links.last !== "undefined") {
-        this.onNavigate(response.data._links.last.href)
-      } else {
-        this.onNavigate(response.data._links.self.href)
-      }
     })
   }
 
@@ -125,19 +108,14 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div>
-        <Container fluid>
-          <div className="float-right">
-            <CreateDialog onCreate={this.onCreate}/>
-          </div>
-          <UserList users={this.state.users}
-                    links={this.state.links}
-                    pageSize={this.state.pageSize}
-                    onNavigate={this.onNavigate}
-                    onUpdate={this.onUpdate}
-                    onDelete={this.onDelete}/>
-        </Container>
-      </div>
+      <Container fluid>
+        <UserList users={this.state.users}
+                  links={this.state.links}
+                  pageSize={this.state.pageSize}
+                  onNavigate={this.onNavigate}
+                  onUpdate={this.onUpdate}
+                  onDelete={this.onDelete}/>
+      </Container>
     )
   }
 }
