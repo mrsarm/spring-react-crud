@@ -24,7 +24,8 @@ public class HomeController {
 	@RequestMapping(value = {
 		"/",
 		"/about",
-		"/users/create"
+		"/users/create",
+		"/users/{id}"
 	})
 	public String index() {
 		return "index";

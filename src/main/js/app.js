@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
 import client from './client'
 import UserList from './UserList'
 import CreateUser from './CreateUser'
+import UpdateUser from './UpdateUser'
 import About from './About'
 
 
@@ -23,6 +24,7 @@ class App extends React.Component {
           <Route path="/" exact={true} component={Home}/>
           <Route path="/about" exact={true} component={About}/>
           <Route path="/users/create" exact={true} component={CreateUser}/>
+          <Route path="/users/:id" component={UpdateUser}/>
         </Switch>
       </Router>
     )
@@ -35,7 +37,6 @@ class Home extends React.Component {
   constructor(props) {
     super(props)
     this.state = {users: [], pageSize: 2, links: []}
-    this.onUpdate = this.onUpdate.bind(this)
     this.onDelete = this.onDelete.bind(this)
     this.onNavigate = this.onNavigate.bind(this)
   }
@@ -48,32 +49,6 @@ class Home extends React.Component {
         pageSize: pageSize
       })
       return response
-    })
-  }
-
-  onUpdate(user, updatedUser) {
-    client({
-      method: 'put',
-      url: user._links.self.href,
-      data: updatedUser,
-      headers: {
-        'Content-Type': 'application/json'
-        //,'If-Match': user.headers.Etag
-      }
-    }).then(response => {
-      return this.loadFromServer(this.state.pageSize)
-    }).catch(error => {
-      if (error.response.status == 403) {
-          alert('ACCESS DENIED: You are not authorized to update ' +
-            user._links.self.href);
-      } else if (error.response.status == 412) {
-          alert('DENIED: Unable to update ' + user._links.self.href +
-            '. Your copy is stale.');
-      } else {
-        //TODO Improve error handling!
-        console.error("Unknown error updating user -", error)
-        alert('An Error ocurred')
-      }
     })
   }
 

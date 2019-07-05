@@ -13,8 +13,8 @@ Guide: https://spring.io/guides/tutorials/react-and-spring-data-rest
 The **goal** is to learn better how to use React, and complete the guide but
 improving the original code with the following changes and features:
 
-- [ ] Make it more appealing, using Bootstrap / HTML5,
-      ([reactstrap](https://reactstrap.github.io/), *in progress...*)
+- [X] Make it more appealing, using Bootstrap / HTML5,
+      ([reactstrap](https://reactstrap.github.io/))
 - [X] The original application makes a lot of unnecessary requests to only show
       the paginated results (2 initial requests + 1 request * number of items
       in the page), that should be narrowed to just one request.
@@ -30,6 +30,7 @@ improving the original code with the following changes and features:
       even using Websockets
 - [X] Split the JS code in different modules to make it more readable (in the
       original code all the React classes are in just one .js file)
+- [ ] Fix issue edit users cause to blank the password in the database
 - [ ] Add more features, specially to handle users ...
 
 

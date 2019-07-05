@@ -1,6 +1,6 @@
 import React from 'react'
-import { withRouter } from 'react-router-dom'
-import UpdateDialog from './UpdateDialog'
+import { Link, withRouter } from 'react-router-dom'
+import { Button, ButtonGroup } from 'reactstrap';
 
 
 class User extends React.Component {
@@ -16,16 +16,16 @@ class User extends React.Component {
 
   render() {
     return (
-      <tr>
+      <tr key={this.props.user._links.self.href}>
         <td style={{whiteSpace: 'nowrap'}}>{this.props.user.firstName}</td>
         <td>{this.props.user.lastName}</td>
         <td>{this.props.user.email}</td>
         <td>{this.props.user.description}</td>
         <td>
-          <UpdateDialog user={this.props.user} onUpdate={this.props.onUpdate}/>
-        </td>
-        <td>
-          <button onClick={this.handleDelete}>Delete</button>
+          <ButtonGroup>
+            <Button size="sm" color="primary" tag={Link} to={this.props.user._links.self.href.split("/api")[1]}>Edit</Button>
+            <Button size="sm" color="danger" onClick={this.handleDelete}>Delete</Button>
+          </ButtonGroup>
         </td>
       </tr>
     )
