@@ -1,7 +1,8 @@
 import React from "react"
 import {Link, withRouter} from 'react-router-dom'
 import client from "./client"
-import {Button, Container, Form, FormGroup, Input, Label, Row} from "reactstrap";
+import {Button, Container, Form, FormGroup, Input, Label, Row} from "reactstrap"
+import ReactDOM from "react-dom"
 
 
 class UpdateUser extends React.Component {
@@ -49,6 +50,12 @@ class UpdateUser extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault()
+    let password = ReactDOM.findDOMNode(this.refs["password"]).value.trim()
+    if (password) {
+      let user = this.state.user
+      user.password = password
+      this.setState({user: user})
+    }
     this.onUpdate()
       .then(response => {
         window.location = "/"
@@ -78,6 +85,11 @@ class UpdateUser extends React.Component {
               <Input type="text" placeholder="Email" name="email" defaultValue={this.state.user.email}
                      onChange={this.handleChange}/>
             </FormGroup>
+            <FormGroup>
+              <Label for="password">Password</Label>
+              <Input type="password" autocomplete="new-password" ref="password"
+                     placeholder="Password (leave blank if you don't want to change it)"/>
+            </FormGroup>
             <Row>
               <FormGroup className="col-md-6">
                 <Label for="firstName">First name</Label>
@@ -92,8 +104,8 @@ class UpdateUser extends React.Component {
             </Row>
             <FormGroup>
               <Label for="description">Notes</Label>
-              <Input type="text" placeholder="Notes" name="description" defaultValue={this.state.user.description}
-                     onChange={this.handleChange}/>
+              <Input type="textarea" name="description" defaultValue={this.state.user.description}
+                     onChange={this.handleChange} rows="4" placeholder="Notes (visible for the user)"/>
             </FormGroup>
             <FormGroup>
               <Button color="primary" onClick={this.handleSubmit}>Save</Button>{' '}

@@ -69,7 +69,8 @@ class CreateUser extends React.Component {
           </Row>
           <FormGroup>
             <Label for="description">Notes</Label>
-            <Input type="text" placeholder="Notes" ref="description"/>
+            <Input type="textarea" placeholder="Notes" ref="description" rows="4"
+                   placeholder="Notes (visible for the user)"/>
           </FormGroup>
           <FormGroup>
             <Button color="primary" onClick={this.handleSubmit}>Create</Button>{' '}
