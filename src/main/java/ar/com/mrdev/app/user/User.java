@@ -15,32 +15,43 @@
  */
 package ar.com.mrdev.app.user;
 
-//import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
+import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+import static ar.com.mrdev.app.Constants.*;
+import static javax.validation.constraints.Pattern.Flag.CASE_INSENSITIVE;
+
 
 @Data
-@ToString(exclude = "password")
+@ToString(exclude = {"password", "blankPassword"})
 @Entity
 public class User {
 
 	public static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
 
 	private @Id @GeneratedValue Long id;
-	private String firstName;
-	private String lastName;
-	private String description;
+	private @NotNull @Size(min = 3, max = SIZE_FIELD) String firstName;
+	private @NotNull @Size(min = 0, max = SIZE_FIELD) String lastName;
+	private @Size(min = 0, max = SIZE_DESCRIPTION) String description;
 
-	private String email;
+	@Pattern(regexp = EMAIL_REGEXP, flags = CASE_INSENSITIVE, message="Invalid email address")
+	private @NotNull @Size(min = 3, max = 50) String email;
 
 	private @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	String password;
+
+	@JsonIgnore @Transient @Getter(AccessLevel.NONE) @Setter(AccessLevel.NONE)
+	private transient String blankPassword;
 
 	private String[] roles = new String[] {};
 
@@ -55,7 +66,19 @@ public class User {
 		this.roles = roles;
 	}
 
+	@AssertTrue(message = "size must be between 4 and 16")
+	public boolean hasRightSizePassword() {
+		return  blankPassword==null || (blankPassword.length()>=4 && blankPassword.length()<=16);
+	}
+
 	public void setPassword(String password) {
+		this.blankPassword = password;
 		this.password = PASSWORD_ENCODER.encode(password);
+	}
+
+	@JsonIgnore @Transient
+	public void setAlreadyEncodedPassword(String password) {
+		this.blankPassword = null;
+		this.password = password;
 	}
 }
