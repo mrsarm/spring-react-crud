@@ -4,8 +4,6 @@ React.js and Spring Data REST - CRUD
 CRUD application with security enabled: a PoC with
 ReactJS in the frontend and Spring Data REST in the backend.
 
-> ⚠️ **_NOTE:_**  Work in Progress
-
 Based in the source code here: https://github.com/spring-guides/tut-react-and-spring-data-rest
 
 Guide: https://spring.io/guides/tutorials/react-and-spring-data-rest
@@ -30,7 +28,6 @@ improving the original code with the following changes and features:
       even using Websockets
 - [X] Split the JS code in different modules to make it more readable (in the
       original code all the React classes are in just one .js file)
-- [ ] Fix issue edit users cause to blank the password in the database
 - [ ] Add more features, specially to handle users ...
 
 

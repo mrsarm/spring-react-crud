@@ -1,7 +1,7 @@
 import React from "react"
 import {Link, withRouter} from 'react-router-dom'
 import client from "./client"
-import {Button, Container, Form, FormGroup, Input, Label} from "reactstrap";
+import {Button, Container, Form, FormGroup, Input, Label, Row} from "reactstrap";
 
 
 class UpdateUser extends React.Component {
@@ -38,7 +38,7 @@ class UpdateUser extends React.Component {
   onUpdate() {
     return client({
       method: 'put',
-      url: this.state.user._links.self.href,
+      url: this.state.user._links.self.href + '/profile',
       data: this.state.user,
       headers: {
         'Content-Type': 'application/json'
@@ -78,16 +78,18 @@ class UpdateUser extends React.Component {
               <Input type="text" placeholder="Email" name="email" defaultValue={this.state.user.email}
                      onChange={this.handleChange}/>
             </FormGroup>
-            <FormGroup>
-              <Label for="firstName">First name</Label>
-              <Input type="text" placeholder="First Name" name="firstName" defaultValue={this.state.user.firstName}
-                     onChange={this.handleChange}/>
-            </FormGroup>
-            <FormGroup>
-              <Label for="lastName">Last name</Label>
-              <Input type="text" placeholder="Last Name" name="lastName" defaultValue={this.state.user.lastName}
-                     onChange={this.handleChange}/>
-            </FormGroup>
+            <Row>
+              <FormGroup className="col-md-6">
+                <Label for="firstName">First name</Label>
+                <Input type="text" placeholder="First Name" name="firstName" defaultValue={this.state.user.firstName}
+                       onChange={this.handleChange}/>
+              </FormGroup>
+              <FormGroup className="col-md-6">
+                <Label for="lastName">Last name</Label>
+                <Input type="text" placeholder="Last Name" name="lastName" defaultValue={this.state.user.lastName}
+                       onChange={this.handleChange}/>
+              </FormGroup>
+            </Row>
             <FormGroup>
               <Label for="description">Notes</Label>
               <Input type="text" placeholder="Notes" name="description" defaultValue={this.state.user.description}

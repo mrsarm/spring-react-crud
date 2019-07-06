@@ -36,7 +36,7 @@ class Home extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {users: [], pageSize: 2, links: []}
+    this.state = {users: [], pageSize: 5, links: []}
     this.onDelete = this.onDelete.bind(this)
     this.onNavigate = this.onNavigate.bind(this)
   }

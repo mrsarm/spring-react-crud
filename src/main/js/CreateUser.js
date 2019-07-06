@@ -1,7 +1,7 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import { withRouter, Link } from 'react-router-dom'
-import { Button, Container, Form, FormGroup, Label, Input } from 'reactstrap'
+import { Button, Container, Form, FormGroup, Label, Input, Row } from 'reactstrap'
 import client from "./client"
 
 
@@ -19,10 +19,20 @@ class CreateUser extends React.Component {
     for (const attribute in this.refs) {
       newUser[attribute] = ReactDOM.findDOMNode(this.refs[attribute]).value.trim()
     }
-    this.onCreate(newUser).finally(response => {
-      // Navigate away from the dialog to hide it.
-      window.location = "/"
-    })
+    this.onCreate(newUser)
+      .then(response => {
+        // Navigate away from the dialog to hide it.
+        window.location = "/"
+      })
+      .catch(error => {
+        if (error.response.status == 403) {
+          alert('ACCESS DENIED: You are not authorized to create a new user.');
+        } else {
+          //TODO Improve error handling!
+          console.error("Unknown error creating user -", error)
+          alert('An Error ocurred')
+        }
+      })
   }
 
   onCreate(newUser) {
@@ -47,14 +57,16 @@ class CreateUser extends React.Component {
             <Label for="password">Password</Label>
             <Input type="password" placeholder="Password" ref="password"/>
           </FormGroup>
-          <FormGroup>
-            <Label for="firstName">First name</Label>
-            <Input type="text" placeholder="First Name" ref="firstName"/>
-          </FormGroup>
-          <FormGroup>
-            <Label for="lastName">Last name</Label>
-            <Input type="text" placeholder="Last Name" ref="lastName"/>
-          </FormGroup>
+          <Row>
+            <FormGroup className="col-md-6">
+              <Label for="firstName">First name</Label>
+              <Input type="text" placeholder="First Name" ref="firstName"/>
+            </FormGroup>
+            <FormGroup className="col-md-6">
+              <Label for="lastName">Last name</Label>
+              <Input type="text" placeholder="Last Name" ref="lastName"/>
+            </FormGroup>
+          </Row>
           <FormGroup>
             <Label for="description">Notes</Label>
             <Input type="text" placeholder="Notes" ref="description"/>
