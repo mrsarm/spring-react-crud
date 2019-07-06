@@ -20,10 +20,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -44,6 +41,7 @@ public class User {
 	private @NotNull @Size(min = 0, max = SIZE_FIELD) String lastName;
 	private @Size(min = 0, max = SIZE_DESCRIPTION) String description;
 
+	@Column(unique=true)
 	@Pattern(regexp = EMAIL_REGEXP, flags = CASE_INSENSITIVE, message="Invalid email address")
 	private @NotNull @Size(min = 3, max = 50) String email;
 

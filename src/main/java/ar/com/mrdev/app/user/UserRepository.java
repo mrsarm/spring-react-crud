@@ -43,12 +43,12 @@ class UserRepositoryCustomImpl implements UserRepositoryCustom {
 
 	@Override
 	@Transactional
-	// This is just to show how to override any existent
-	// method from the CrudRepository / PagingAndSortingRepository,
-	// but this implementation only log when a user was created/edited
 	public <U extends User> U save(U user) {
 		if (entityInformation.isNew(user)) {
 			log.info("Creating new {}", user);
+			if (user.getPassword()==null) {
+				throw new IllegalArgumentException("Null password");
+			}
 			em.persist(user);
 			return user;
 		} else {
