@@ -1,6 +1,8 @@
 React.js and Spring Data REST - CRUD
 ====================================
 
+![React Spring CRUD](docs/img/spring-react-crud.png)
+
 CRUD application with security enabled: a PoC with
 ReactJS in the frontend and Spring Data REST in the backend.
 
