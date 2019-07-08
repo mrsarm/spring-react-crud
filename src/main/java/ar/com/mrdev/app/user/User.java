@@ -30,7 +30,7 @@ import static javax.validation.constraints.Pattern.Flag.CASE_INSENSITIVE;
 
 
 @Data
-@ToString(exclude = {"password", "blankPassword"})
+@ToString(exclude = {"password", "clearPassword"})
 @Entity
 public class User {
 
@@ -49,7 +49,7 @@ public class User {
 	String password;
 
 	@JsonIgnore @Transient @Getter(AccessLevel.NONE) @Setter(AccessLevel.NONE)
-	private transient String blankPassword;
+	private transient String clearPassword;
 
 	private String[] roles = new String[] {};
 
@@ -66,17 +66,17 @@ public class User {
 
 	@AssertTrue(message = "size must be between 4 and 16")
 	public boolean hasRightSizePassword() {
-		return  blankPassword==null || (blankPassword.length()>=4 && blankPassword.length()<=16);
+		return  clearPassword ==null || (clearPassword.length()>=4 && clearPassword.length()<=16);
 	}
 
 	public void setPassword(String password) {
-		this.blankPassword = password;
+		this.clearPassword = password;
 		this.password = PASSWORD_ENCODER.encode(password);
 	}
 
 	@JsonIgnore @Transient
 	public void setAlreadyEncodedPassword(String password) {
-		this.blankPassword = null;
+		this.clearPassword = null;
 		this.password = password;
 	}
 }
