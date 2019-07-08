@@ -82,23 +82,23 @@ class UpdateUser extends React.Component {
           <Form>
             <FormGroup>
               <Label for="email">Email</Label>
-              <Input type="text" placeholder="Email" name="email" defaultValue={this.state.user.email}
+              <Input type="text" placeholder="Email" name="email" id="email" defaultValue={this.state.user.email}
                      onChange={this.handleChange}/>
             </FormGroup>
             <FormGroup>
               <Label for="password">Password</Label>
-              <Input type="password" autocomplete="new-password" ref="password"
+              <Input type="password" autoComplete="new-password" id="password" ref="password"
                      placeholder="Password (leave blank if you don't want to change it)"/>
             </FormGroup>
             <Row>
               <FormGroup className="col-md-6">
                 <Label for="firstName">First name</Label>
-                <Input type="text" placeholder="First Name" name="firstName" defaultValue={this.state.user.firstName}
+                <Input type="text" placeholder="First Name" name="firstName" id="firstName" defaultValue={this.state.user.firstName}
                        onChange={this.handleChange}/>
               </FormGroup>
               <FormGroup className="col-md-6">
                 <Label for="lastName">Last name</Label>
-                <Input type="text" placeholder="Last Name" name="lastName" defaultValue={this.state.user.lastName}
+                <Input type="text" placeholder="Last Name" name="lastName" id="lastName" defaultValue={this.state.user.lastName}
                        onChange={this.handleChange}/>
               </FormGroup>
             </Row>

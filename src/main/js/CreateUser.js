@@ -51,25 +51,25 @@ class CreateUser extends React.Component {
         <Form>
           <FormGroup>
             <Label for="email">Email</Label>
-            <Input type="text" placeholder="Email" ref="email"/>
+            <Input type="text" placeholder="Email" id="email" ref="email"/>
           </FormGroup>
           <FormGroup>
             <Label for="password">Password</Label>
-            <Input type="password" placeholder="Password" ref="password"/>
+            <Input type="password" placeholder="Password" id="password" ref="password"/>
           </FormGroup>
           <Row>
             <FormGroup className="col-md-6">
               <Label for="firstName">First name</Label>
-              <Input type="text" placeholder="First Name" ref="firstName"/>
+              <Input type="text" placeholder="First Name" ref="firstName" id="firstName"/>
             </FormGroup>
             <FormGroup className="col-md-6">
               <Label for="lastName">Last name</Label>
-              <Input type="text" placeholder="Last Name" ref="lastName"/>
+              <Input type="text" placeholder="Last Name" ref="lastName" id="lastName"/>
             </FormGroup>
           </Row>
           <FormGroup>
             <Label for="description">Notes</Label>
-            <Input type="textarea" placeholder="Notes" ref="description" rows="4"
+            <Input type="textarea" placeholder="Notes" ref="description" id="description" rows="4"
                    placeholder="Notes (visible for the user)"/>
           </FormGroup>
           <FormGroup>
