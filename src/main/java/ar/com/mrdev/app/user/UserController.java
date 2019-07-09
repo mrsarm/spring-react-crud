@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import javax.servlet.http.HttpServletRequest;
+
 
 @RestController
 public class UserController {
@@ -15,19 +17,23 @@ public class UserController {
 
 	/**
 	 * To update the profile without modifying the
-	 * password (if it's not provided) and the
-	 * user roles
+	 * password (if it's not provided) and  without modifying the
+	 * user roles (if the authenticated user isn't a Manager)
 	 */
 	@PutMapping("/api/users/{id}/profile")
 	@PreAuthorize("hasRole('ROLE_MANAGER') or #user?.email == authentication?.name")
-	public User updateProfile(@PathVariable Long id, @Validated @RequestBody User user) {
+	public User updateProfile(HttpServletRequest request, @PathVariable Long id, @Validated @RequestBody User user) {
 		User userEntity = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("User not found"));
-		if (!userEntity.getId().equals(id)) {
-			throw new IllegalArgumentException("Email only editable by manager users");
+		if (request.isUserInRole("ROLE_MANAGER")) {
+			// Only Manager can edit roles
+			if (user.getRoles()!=null) {
+				userEntity.setRoles(user.getRoles());
+			}
 		}
-		if (user.getPassword()!=null) {
+		if (user.getPassword() != null) {
 			userEntity.setAlreadyEncodedPassword(user.getPassword());
 		}
+		userEntity.setEmail(user.getEmail());
 		userEntity.setFirstName(user.getFirstName());
 		userEntity.setLastName(user.getLastName());
 		userEntity.setDescription(user.getDescription());

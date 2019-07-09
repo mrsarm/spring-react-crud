@@ -1,6 +1,9 @@
+'use strict';
+
 import React from "react"
 import {Link, withRouter} from 'react-router-dom'
 import client from "./client"
+import {getTargetValue} from "./common"
 import {Button, Container, Form, FormGroup, Input, Label, Row} from "reactstrap"
 import ReactDOM from "react-dom"
 
@@ -28,9 +31,8 @@ class UpdateUser extends React.Component {
   }
 
   handleChange(event) {
-    const target = event.target
-    const value = target.value
-    const name = target.name
+    const name = event.target.name
+    let value = getTargetValue(event.target)
     let user = {...this.state.user}
     user[name] = value
     this.setState({user: user})
@@ -93,7 +95,8 @@ class UpdateUser extends React.Component {
             <Row>
               <FormGroup className="col-md-6">
                 <Label for="firstName">First name</Label>
-                <Input type="text" placeholder="First Name" name="firstName" id="firstName" defaultValue={this.state.user.firstName}
+                <Input type="text" placeholder="First Name" name="firstName" id="firstName" ref="firstName"
+                       defaultValue={this.state.user.firstName}
                        onChange={this.handleChange}/>
               </FormGroup>
               <FormGroup className="col-md-6">
@@ -102,11 +105,20 @@ class UpdateUser extends React.Component {
                        onChange={this.handleChange}/>
               </FormGroup>
             </Row>
-            <FormGroup>
-              <Label for="description">Notes</Label>
-              <Input type="textarea" name="description" defaultValue={this.state.user.description}
-                     onChange={this.handleChange} rows="4" placeholder="Notes (visible for the user)"/>
-            </FormGroup>
+            <Row>
+              <FormGroup className="col-md-6">
+                <Label for="roles">Roles</Label>
+                <Input type="select" name="roles" id="roles" multiple
+                       value={this.state.user.roles} onChange={this.handleChange}>
+                  <option value="ROLE_MANAGER">Manager</option>
+                </Input>
+              </FormGroup>
+              <FormGroup className="col-md-6">
+                <Label for="description">Notes</Label>
+                <Input type="textarea" name="description" id="description" defaultValue={this.state.user.description}
+                       onChange={this.handleChange} rows="3" placeholder="Notes (visible for the user)"/>
+              </FormGroup>
+            </Row>
             <FormGroup>
               <Button color="primary" onClick={this.handleSubmit}>Save</Button>{' '}
               <Button color="secondary" tag={Link} to="/">Cancel</Button>
