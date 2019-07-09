@@ -1,8 +1,11 @@
+'use strict';
+
 import React from "react"
 import ReactDOM from "react-dom"
 import { withRouter, Link } from 'react-router-dom'
 import { Button, Container, Form, FormGroup, Label, Input, Row } from 'reactstrap'
 import client from "./client"
+import {getTargetValue} from "./common"
 
 
 class CreateUser extends React.Component {
@@ -17,7 +20,8 @@ class CreateUser extends React.Component {
     e.preventDefault()
     const newUser = {}
     for (const attribute in this.refs) {
-      newUser[attribute] = ReactDOM.findDOMNode(this.refs[attribute]).value.trim()
+      const node = ReactDOM.findDOMNode(this.refs[attribute])
+      newUser[attribute] = getTargetValue(node)
     }
     this.onCreate(newUser)
       .then(response => {
@@ -67,11 +71,19 @@ class CreateUser extends React.Component {
               <Input type="text" placeholder="Last Name" ref="lastName" id="lastName"/>
             </FormGroup>
           </Row>
-          <FormGroup>
-            <Label for="description">Notes</Label>
-            <Input type="textarea" placeholder="Notes" ref="description" id="description" rows="4"
-                   placeholder="Notes (visible for the user)"/>
-          </FormGroup>
+          <Row>
+            <FormGroup className="col-md-6">
+              <Label for="roles">Roles</Label>
+              <Input type="select" name="roles" id="roles" ref="roles" multiple>
+                <option value="ROLE_MANAGER">Manager</option>
+              </Input>
+            </FormGroup>
+            <FormGroup className="col-md-6">
+              <Label for="description">Notes</Label>
+              <Input type="textarea" placeholder="Notes" ref="description" id="description" rows="4"
+                     placeholder="Notes (visible for the user)"/>
+            </FormGroup>
+          </Row>
           <FormGroup>
             <Button color="primary" onClick={this.handleSubmit}>Create</Button>{' '}
             <Button color="secondary" tag={Link} to="/">Cancel</Button>

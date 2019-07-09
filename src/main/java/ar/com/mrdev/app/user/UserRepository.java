@@ -24,6 +24,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
+import java.util.Arrays;
+import java.util.List;
 
 
 interface UserRepositoryCustom {
@@ -44,6 +46,12 @@ class UserRepositoryCustomImpl implements UserRepositoryCustom {
 	@Override
 	@Transactional
 	public <U extends User> U save(U user) {
+		// Check roles are valid
+		List<String> newRoles = Arrays.asList(user.getRoles());
+		if (!User.ROLES.containsAll(newRoles)) {
+			throw new IllegalArgumentException("Some user roles are invalid " + newRoles);
+		}
+
 		if (entityInformation.isNew(user)) {
 			log.info("Creating new {}", user);
 			if (user.getPassword()==null) {

@@ -25,6 +25,8 @@ import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.Arrays;
+import java.util.List;
 import static ar.com.mrdev.app.Constants.*;
 import static javax.validation.constraints.Pattern.Flag.CASE_INSENSITIVE;
 
@@ -35,6 +37,10 @@ import static javax.validation.constraints.Pattern.Flag.CASE_INSENSITIVE;
 public class User {
 
 	public static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
+
+	// Add more roles here (TODO: move roles to a enum class)
+	public static final String ROLE_MANAGER = "ROLE_MANAGER";
+	public static final List<String> ROLES = Arrays.asList(ROLE_MANAGER);
 
 	private @Id @GeneratedValue Long id;
 	private @NotNull @Size(min = 3, max = SIZE_FIELD) String firstName;

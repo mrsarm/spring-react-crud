@@ -23,6 +23,8 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import java.util.stream.Stream;
+import static ar.com.mrdev.app.user.User.ROLE_MANAGER;
+
 
 @Component
 @Slf4j
@@ -43,9 +45,9 @@ public class DatabaseLoader implements CommandLineRunner {
 				AuthorityUtils.createAuthorityList("ROLE_MANAGER")));
 
 		Stream.of(
-			new User("frodo@local", "Frodo", "Baggins", "Ring bearer", "admin", "ROLE_MANAGER"),
+			new User("frodo@local", "Frodo", "Baggins", "Ring bearer", "admin", ROLE_MANAGER),
 			new User("bilbo@local", "Bilbo", "Baggins", "Burglar", "test"),
-			new User("gf@local", "Gandalf", "the Grey", "Wizard", "admin", "ROLE_MANAGER"),
+			new User("gf@local", "Gandalf", "the Grey", "Wizard", "admin", ROLE_MANAGER),
 			new User("lego@local", "Legolas", "Greenleaf", "Elf prince", "test"),
 			new User("sam@local", "Sam", "Gamgee", "The gardener", "test")
 		).forEach(user -> {

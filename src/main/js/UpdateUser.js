@@ -101,21 +101,23 @@ class UpdateUser extends React.Component {
               </FormGroup>
               <FormGroup className="col-md-6">
                 <Label for="lastName">Last name</Label>
-                <Input type="text" placeholder="Last Name" name="lastName" id="lastName" defaultValue={this.state.user.lastName}
+                <Input type="text" placeholder="Last Name" name="lastName" id="lastName" ref="lastName"
+                       defaultValue={this.state.user.lastName}
                        onChange={this.handleChange}/>
               </FormGroup>
             </Row>
             <Row>
               <FormGroup className="col-md-6">
                 <Label for="roles">Roles</Label>
-                <Input type="select" name="roles" id="roles" multiple
+                <Input type="select" name="roles" id="roles" ref="roles" multiple
                        value={this.state.user.roles} onChange={this.handleChange}>
                   <option value="ROLE_MANAGER">Manager</option>
                 </Input>
               </FormGroup>
               <FormGroup className="col-md-6">
                 <Label for="description">Notes</Label>
-                <Input type="textarea" name="description" id="description" defaultValue={this.state.user.description}
+                <Input type="textarea" name="description" id="description" ref="description"
+                       defaultValue={this.state.user.description}
                        onChange={this.handleChange} rows="3" placeholder="Notes (visible for the user)"/>
               </FormGroup>
             </Row>
