@@ -14,22 +14,23 @@ The **goal** is to learn better how to use React, and complete the guide but
 improving the original code with the following changes and features:
 
 - [X] Make it more appealing, using Bootstrap / HTML5,
-      ([reactstrap](https://reactstrap.github.io/))
+      ([reactstrap](https://reactstrap.github.io/)).
 - [X] The original application makes a lot of unnecessary requests to only show
-      the paginated results (2 initial requests + 1 request * number of items
+      the paginated results (2 initial requests + 1 request × number of items
       in the page), that should be narrowed to just one request.
 - [X] Replace the depreacted library [rest.js](https://github.com/cujojs/rest) that
       also does not support standard promises by a modern HTTP client:
-      [Axios](https://github.com/axios/axios)
-- [X] Add a REST browser for development purpose: HAL Browser
+      [Axios](https://github.com/axios/axios).
+- [X] Bookmarkable URLs with [React Router](https://reacttraining.com/react-router/).
+- [X] Add a REST browser for development purpose: HAL Browser.
 - [X] The entity `Employee` in the original guide is the `User` entity here,
-      that was merged with the `Manager` entity
-- [ ] Add better validations and errors handling
+      that was merged with the `Manager` entity.
+- [ ] Add better validations and errors handling.
 - [X] Remove Websockets used to update the data in the frontend in "real time",
       most cases like this is unnecessary and a waste of resources,
-      even using Websockets
+      even using Websockets.
 - [X] Split the JS code in different modules to make it more readable (in the
-      original code all the React classes are in just one .js file)
+      original code all the React classes are in just one .js file).
 - [ ] Add more features, specially to handle users ...
 
 
