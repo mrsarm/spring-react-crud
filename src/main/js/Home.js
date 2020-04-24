@@ -60,7 +60,6 @@ class Home extends React.Component {
                   links={this.state.links}
                   pageSize={this.state.pageSize}
                   onNavigate={this.onNavigate}
-                  onUpdate={this.onUpdate}
                   onDelete={this.onDelete}/>
       </Container>
     )
