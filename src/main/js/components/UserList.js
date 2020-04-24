@@ -1,5 +1,6 @@
 import React from "react"
-import {Button, Pagination, PaginationItem, PaginationLink, Table} from "reactstrap"
+import {Button, Container, Pagination,
+        PaginationItem, PaginationLink, Table} from "reactstrap"
 import {Link, withRouter} from 'react-router-dom'
 import UserItem from './UserItem'
 
@@ -70,7 +71,7 @@ class UserList extends React.Component {
     }
 
     return (
-      <div>
+      <Container fluid>
         <div className="float-right">
           <Button color="success" tag={Link} to="/users/create">Add User</Button>
         </div>
@@ -94,7 +95,7 @@ class UserList extends React.Component {
             {navLinks}
           </Pagination>
         }
-      </div>
+      </Container>
     )
   }
 }

@@ -5,7 +5,7 @@ import ReactDOM from "react-dom"
 import { withRouter, Link } from 'react-router-dom'
 import { Button, Container, Form, FormGroup, Label, Input, Row } from 'reactstrap'
 import client from "./client"
-import {getTargetValue} from "./common"
+import {getTargetValue} from "../common"
 
 
 class CreateUser extends React.Component {

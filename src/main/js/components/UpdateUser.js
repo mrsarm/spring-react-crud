@@ -3,7 +3,7 @@
 import React from "react"
 import {Link, withRouter} from 'react-router-dom'
 import client from "./client"
-import {getTargetValue} from "./common"
+import {getTargetValue} from "../common"
 import {Button, Container, Form, FormGroup, Input, Label, Row} from "reactstrap"
 import ReactDOM from "react-dom"
 
