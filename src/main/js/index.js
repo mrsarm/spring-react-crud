@@ -3,17 +3,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import client from './client'
-import Home from './Home'
-import CreateUser from './CreateUser'
-import UpdateUser from './UpdateUser'
-import About from './About'
+import client from './components/client'
+import Home from './components/Home'
+import CreateUser from './components/CreateUser'
+import UpdateUser from './components/UpdateUser'
+import About from './components/About'
 
 
 window.client = client   // To be accessible from browser and debug requests
 
 
-class App extends React.Component {
+class Index extends React.Component {
   render() {
     return (
       <Router>
@@ -30,6 +30,6 @@ class App extends React.Component {
 
 
 ReactDOM.render(
-  <App />,
+  <Index />,
   document.getElementById('react')
 )

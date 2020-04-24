@@ -1,7 +1,7 @@
 import React from "react"
 import {Button, Pagination, PaginationItem, PaginationLink, Table} from "reactstrap"
 import {Link, withRouter} from 'react-router-dom'
-import User from './User'
+import UserItem from './UserItem'
 
 
 class UserList extends React.Component {
@@ -36,7 +36,7 @@ class UserList extends React.Component {
 
   render() {
     const users = this.props.users.map(user =>
-      <User key={user._links.self.href} user={user} onDelete={this.props.onDelete} onUpdate={this.props.onUpdate}/>
+      <UserItem key={user._links.self.href} user={user} onDelete={this.props.onDelete} onUpdate={this.props.onUpdate}/>
     )
 
     const navLinks = []

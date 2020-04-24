@@ -3,7 +3,7 @@ import { Link, withRouter } from 'react-router-dom'
 import { Button, ButtonGroup } from 'reactstrap';
 
 
-class User extends React.Component {
+class UserItem extends React.Component {
 
   constructor(props) {
     super(props);
@@ -32,4 +32,4 @@ class User extends React.Component {
   }
 }
 
-export default withRouter(User)
+export default withRouter(UserItem)
