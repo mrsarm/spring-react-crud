@@ -25,7 +25,7 @@ class About extends React.Component {
           <strong>Source Code</strong>:
           <a href="https://github.com/mrsarm/spring-react-crud" target="_blank">https://github.com/mrsarm/spring-react-crud</a>
         </p>
-        <address>2015-2019  |  Apache-2.0</address>
+        <address>2015-2020  |  Apache-2.0</address>
         <Button color="link"><Link to="/">← Back to Users</Link></Button>
       </Container>
     )
