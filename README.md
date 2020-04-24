@@ -80,9 +80,10 @@ To edit Javascript or CSS resources and see the changes in the
 browser without the need to re-launch the application, execute within
 a command line:
 
-    $ target/node/npm run watch
+    $ npm run watch
 
-And leave it running.
+And leave it running (if it doesn't work, try with `target/node/npm run watch`).
+
 
 About
 -----
@@ -96,5 +97,4 @@ About
 * Greg Turnquist (Pivotal)
 * Pivotal committers and other contributors
 
-2015-2019  |  Apache-2.0
-
+2015-2020  |  Apache-2.0
