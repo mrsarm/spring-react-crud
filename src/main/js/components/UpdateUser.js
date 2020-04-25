@@ -80,7 +80,7 @@ class UpdateUser extends React.Component {
           <Form>
             <FormGroup>
               <Label for="email">Email</Label>
-              <Input type="text" placeholder="Email" name="email" id="email" defaultValue={this.state.user.email}
+              <Input type="text" placeholder="Email" name="email" id="email" value={this.state.user.email}
                      onChange={this.handleChange}/>
             </FormGroup>
             <FormGroup>
@@ -92,13 +92,13 @@ class UpdateUser extends React.Component {
               <FormGroup className="col-md-6">
                 <Label for="firstName">First name</Label>
                 <Input type="text" placeholder="First Name" name="firstName" id="firstName" ref="firstName"
-                       defaultValue={this.state.user.firstName}
+                       value={this.state.user.firstName}
                        onChange={this.handleChange}/>
               </FormGroup>
               <FormGroup className="col-md-6">
                 <Label for="lastName">Last name</Label>
                 <Input type="text" placeholder="Last Name" name="lastName" id="lastName" ref="lastName"
-                       defaultValue={this.state.user.lastName}
+                       value={this.state.user.lastName}
                        onChange={this.handleChange}/>
               </FormGroup>
             </Row>
@@ -113,7 +113,7 @@ class UpdateUser extends React.Component {
               <FormGroup className="col-md-6">
                 <Label for="description">Notes</Label>
                 <Input type="textarea" name="description" id="description" ref="description"
-                       defaultValue={this.state.user.description}
+                       value={this.state.user.description}
                        onChange={this.handleChange} rows="3" placeholder="Notes (visible for the user)"/>
               </FormGroup>
             </Row>
