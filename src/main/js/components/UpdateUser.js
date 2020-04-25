@@ -3,7 +3,7 @@
 import React from "react"
 import {Link, withRouter} from 'react-router-dom'
 import client from "./client"
-import {getTargetValue} from "../common"
+import {applyEventToState} from "../common"
 import {Button, Container, Form, FormGroup, Input, Label, Row} from "reactstrap"
 import ReactDOM from "react-dom"
 
@@ -31,11 +31,7 @@ class UpdateUser extends React.Component {
   }
 
   handleChange(event) {
-    const name = event.target.name
-    let value = getTargetValue(event.target)
-    let user = {...this.state.user}
-    user[name] = value
-    this.setState({user: user})
+    applyEventToState(event, this.state, "user", this.setState.bind(this))
   }
 
   onUpdate() {

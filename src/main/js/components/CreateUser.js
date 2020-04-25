@@ -80,7 +80,7 @@ class CreateUser extends React.Component {
             </FormGroup>
             <FormGroup className="col-md-6">
               <Label for="description">Notes</Label>
-              <Input type="textarea" placeholder="Notes" ref="description" id="description" rows="4"
+              <Input type="textarea" ref="description" id="description" rows="4"
                      placeholder="Notes (visible for the user)"/>
             </FormGroup>
           </Row>
