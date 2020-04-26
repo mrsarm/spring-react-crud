@@ -7,6 +7,8 @@ import {applyEventToState} from "../common"
 import {Button, Container, Form, FormGroup, Input, Label, Spinner, Row} from "reactstrap"
 import ReactDOM from "react-dom"
 import Loading from "./Loading";
+import Message from "./Message";
+import {reduceError} from "./errors";
 
 
 class UpdateUser extends React.Component {
@@ -15,8 +17,8 @@ class UpdateUser extends React.Component {
     super(props)
     this.state = {
       "user": {},
-      isLoadingUser: true,
-      isSavingUser: false
+      isLoadingUser: true, isSavingUser: false,
+      error: null, showForm: false
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -26,12 +28,16 @@ class UpdateUser extends React.Component {
   componentDidMount() {
     get(`/users/${this.props.match.params.id}`)
       .then(response=> {
-        this.setState({user: response.data, isLoadingUser: false})
+        this.setState({
+          user: response.data,
+          isLoadingUser: false, showForm: true
+        })
       })
-      .catch(error=> {
-        console.error("Unknown error getting user", this.props.match.params.id, "-", error)
-        alert('An Error ocurred')
-        this.props.history.push('/')
+      .catch(ex=> {
+        this.setState({
+          error: reduceError(ex, "user", "getting"),
+          isLoadingUser: false, showForm: false
+        })
       })
   }
 
@@ -60,18 +66,11 @@ class UpdateUser extends React.Component {
     this.onUpdate()
       .then(response => {
         window.location = "/"
-      }).catch(error => {
-        if (error.response.status == 403) {
-          alert('ACCESS DENIED: You are not authorized to update ' +
-            this.state.user._links.self.href);
-        } else if (error.response.status == 412) {
-          alert('DENIED: Unable to update ' + this.state.user._links.self.href +
-            '. Your copy is stale.');
-        } else {
-          //TODO Improve error handling!
-          console.error("Unknown error updating user -", error)
-          alert('An Error ocurred')
-        }
+      }).catch(ex => {
+        this.setState({
+          error: reduceError(ex, "user", "update"),
+          isSavingUser: false
+        })
       })
   }
 
@@ -82,7 +81,10 @@ class UpdateUser extends React.Component {
         {this.state.isLoadingUser &&
           <Loading/>
         }
-        {!this.state.isLoadingUser &&
+        {this.state.error && !this.state.showForm &&
+          <Message error={this.state.error}/>
+        }
+        {!this.state.isLoadingUser && this.state.showForm &&
           <Form>
             <FormGroup>
               <Label for="email">Email</Label>
@@ -123,6 +125,9 @@ class UpdateUser extends React.Component {
                        onChange={this.handleChange} rows="3" placeholder="Notes (visible for the user)"/>
               </FormGroup>
             </Row>
+            {this.state.error &&
+              <Message error={this.state.error}/>
+            }
             <FormGroup>
               <Button color="primary" onClick={this.handleSubmit} disabled={this.state.isSavingUser}>
                 {this.state.isSavingUser ? 'Saving...' : 'Save' }

@@ -25,7 +25,8 @@ improving the original code with the following changes and features:
 - [X] Add a REST browser for development purpose: HAL Browser.
 - [X] The entity `Employee` in the original guide is the `User` entity here,
       that was merged with the `Manager` entity.
-- [ ] Add better validations and errors handling.
+- [ ] Add better validations.
+- [X] Add better errors handling.
 - [X] Add spinners and loading messages when the app is waiting for
       a response from the API
 - [X] Remove Websockets used to update the data in the frontend in "real time",
