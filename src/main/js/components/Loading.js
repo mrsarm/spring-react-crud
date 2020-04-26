@@ -2,12 +2,14 @@ import {Container, Spinner} from "reactstrap"
 import React from "react"
 
 function Loading(props) {
-  let message = props.message || "Loading..."
+  const message = props.message || "Loading..."
+  const size = props.size || 'sm'
+  const color = props.color || 'primary'
   return (
-    <Container>
-      <Spinner size="sm" color="primary"/>
+    <>
+      <Spinner size={size} color={color}/>
       <span>&nbsp;&nbsp;{message}</span>
-    </Container>
+    </>
   )
 }
 

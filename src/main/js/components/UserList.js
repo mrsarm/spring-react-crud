@@ -3,38 +3,33 @@ import {Button, Container, Pagination,
         PaginationItem, PaginationLink, Table} from "reactstrap"
 import {Link, withRouter} from 'react-router-dom'
 import UserItem from './UserItem'
-import Loading from "./Loading";
+import Loading from "./Loading"
+import Message from "./Message"
+import LoadingPagination from "./LoadingPagination"
 
 
 class UserList extends React.Component {
 
   constructor(props) {
     super(props)
+    this.state = {isLoadingPagination: props.isLoadingPagination || false}
     this.handleNavFirst = this.handleNavFirst.bind(this)
     this.handleNavPrev = this.handleNavPrev.bind(this)
     this.handleNavNext = this.handleNavNext.bind(this)
     this.handleNavLast = this.handleNavLast.bind(this)
   }
 
-  handleNavFirst(e) {
+  _handleNavFirst(e, link) {
     e.preventDefault()
-    this.props.onNavigate(this.props.links.first.href)
+    this.setState({isLoadingPagination: true})
+    this.props.onNavigate(this.props.links[link].href)
+              .then(()=>this.setState({isLoadingPagination: false}))
   }
 
-  handleNavPrev(e) {
-    e.preventDefault()
-    this.props.onNavigate(this.props.links.prev.href)
-  }
-
-  handleNavNext(e) {
-    e.preventDefault()
-    this.props.onNavigate(this.props.links.next.href)
-  }
-
-  handleNavLast(e) {
-    e.preventDefault()
-    this.props.onNavigate(this.props.links.last.href)
-  }
+  handleNavFirst(e) { this._handleNavFirst(e, "first") }
+  handleNavPrev(e) { this._handleNavFirst(e, "prev") }
+  handleNavNext(e) { this._handleNavFirst(e, "next") }
+  handleNavLast(e) { this._handleNavFirst(e, "last") }
 
   render() {
     const navLinks = this.getNavLinks()
@@ -70,9 +65,17 @@ class UserList extends React.Component {
           </tbody>
         </Table>
         {navLinks.length > 0 &&
-          <Pagination>
-            {navLinks}
-          </Pagination>
+          <>
+            <Pagination>
+              {navLinks}
+              {this.state.isLoadingPagination &&
+                <LoadingPagination/>
+              }
+            </Pagination>
+          </>
+        }
+        {this.props.error &&
+          <Message error={this.props.error}/>
         }
       </Container>
     )
