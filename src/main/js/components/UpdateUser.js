@@ -4,15 +4,20 @@ import React from "react"
 import {Link, withRouter} from 'react-router-dom'
 import {get, put} from "../client"
 import {applyEventToState} from "../common"
-import {Button, Container, Form, FormGroup, Input, Label, Row} from "reactstrap"
+import {Button, Container, Form, FormGroup, Input, Label, Spinner, Row} from "reactstrap"
 import ReactDOM from "react-dom"
+import Loading from "./Loading";
 
 
 class UpdateUser extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {"user": null}
+    this.state = {
+      "user": {},
+      isLoadingUser: true,
+      isSavingUser: false
+    }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.onUpdate = this.onUpdate.bind(this)
@@ -21,7 +26,7 @@ class UpdateUser extends React.Component {
   componentDidMount() {
     get(`/users/${this.props.match.params.id}`)
       .then(response=> {
-        this.setState({"user": response.data})
+        this.setState({user: response.data, isLoadingUser: false})
       })
       .catch(error=> {
         console.error("Unknown error getting user", this.props.match.params.id, "-", error)
@@ -45,9 +50,12 @@ class UpdateUser extends React.Component {
     e.preventDefault()
     let password = ReactDOM.findDOMNode(this.refs["password"]).value.trim()
     if (password) {
-      let user = this.state.user
+      let user = {...this.state.user}
       user.password = password
-      this.setState({user: user})
+      this.setState({user: user, isSavingUser: true})
+    } else {
+      // user state was already updated, see `handleChange(event)`
+      this.setState({isSavingUser: true})
     }
     this.onUpdate()
       .then(response => {
@@ -71,7 +79,10 @@ class UpdateUser extends React.Component {
     return (
       <Container>
         <h3>Update User</h3>
-        {this.state.user &&
+        {this.state.isLoadingUser &&
+          <Loading/>
+        }
+        {!this.state.isLoadingUser &&
           <Form>
             <FormGroup>
               <Label for="email">Email</Label>
@@ -113,7 +124,9 @@ class UpdateUser extends React.Component {
               </FormGroup>
             </Row>
             <FormGroup>
-              <Button color="primary" onClick={this.handleSubmit}>Save</Button>{' '}
+              <Button color="primary" onClick={this.handleSubmit} disabled={this.state.isSavingUser}>
+                {this.state.isSavingUser ? 'Saving...' : 'Save' }
+              </Button>{' '}
               <Button color="secondary" tag={Link} to="/">Cancel</Button>
             </FormGroup>
           </Form>

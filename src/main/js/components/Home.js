@@ -8,7 +8,12 @@ class Home extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {users: [], pageSize: 5, links: []}
+    this.state = {
+      users: [],
+      pageSize: 5,
+      links: [],
+      isLoadingUsers: true
+    }
     this.onDelete = this.onDelete.bind(this)
     this.onNavigate = this.onNavigate.bind(this)
   }
@@ -18,7 +23,8 @@ class Home extends React.Component {
       this.setState({
         users: response.data._embedded.users,
         links: response.data._links,
-        pageSize: pageSize
+        pageSize: pageSize,
+        isLoadingUsers: false
       })
       return response
     })
@@ -59,6 +65,7 @@ class Home extends React.Component {
         <UserList users={this.state.users}
                   links={this.state.links}
                   pageSize={this.state.pageSize}
+                  isLoadingUsers={this.state.isLoadingUsers}
                   onNavigate={this.onNavigate}
                   onDelete={this.onDelete}/>
       </Container>

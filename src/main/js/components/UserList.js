@@ -3,6 +3,7 @@ import {Button, Container, Pagination,
         PaginationItem, PaginationLink, Table} from "reactstrap"
 import {Link, withRouter} from 'react-router-dom'
 import UserItem from './UserItem'
+import Loading from "./Loading";
 
 
 class UserList extends React.Component {
@@ -36,10 +37,48 @@ class UserList extends React.Component {
   }
 
   render() {
-    const users = this.props.users.map(user =>
-      <UserItem key={user._links.self.href} user={user} onDelete={this.props.onDelete} onUpdate={this.props.onUpdate}/>
+    const navLinks = this.getNavLinks()
+    return (
+      <Container fluid>
+        <div className="float-right">
+          <Button color="success" tag={Link} to="/users/create">Add User</Button>
+        </div>
+        <h3>Users</h3>
+        <Table className="mt-4">
+          <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Notes</th>
+            <th width="8%"></th>
+          </tr>
+          </thead>
+          <tbody>
+            {this.props.isLoadingUsers &&
+              <tr key="isLoadingUsers">
+                <td><Loading/></td>
+              </tr>
+            }
+            {!this.props.isLoadingUsers &&
+              this.props.users.map(user =>
+                <UserItem key={user._links.self.href} user={user}
+                          onDelete={this.props.onDelete}
+                          onUpdate={this.props.onUpdate}/>
+              )
+            }
+          </tbody>
+        </Table>
+        {navLinks.length > 0 &&
+          <Pagination>
+            {navLinks}
+          </Pagination>
+        }
+      </Container>
     )
+  }
 
+  getNavLinks() {
     const navLinks = []
     if ("first" in this.props.links) {
       navLinks.push(
@@ -69,34 +108,7 @@ class UserList extends React.Component {
         </PaginationItem>
       )
     }
-
-    return (
-      <Container fluid>
-        <div className="float-right">
-          <Button color="success" tag={Link} to="/users/create">Add User</Button>
-        </div>
-        <h3>Users</h3>
-        <Table className="mt-4">
-          <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Notes</th>
-            <th width="8%"></th>
-          </tr>
-          </thead>
-          <tbody>
-            {users}
-          </tbody>
-        </Table>
-        {navLinks.length > 0 &&
-          <Pagination>
-            {navLinks}
-          </Pagination>
-        }
-      </Container>
-    )
+    return navLinks
   }
 }
 
