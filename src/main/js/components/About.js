@@ -22,7 +22,7 @@ class About extends React.Component {
           <li><em>Pivotal committers and other contributors</em></li>
         </ul>
         <p>
-          <strong>Source Code</strong>:
+          <strong>Source Code</strong>:&nbsp;
           <a href="https://github.com/mrsarm/spring-react-crud" target="_blank">https://github.com/mrsarm/spring-react-crud</a>
         </p>
         <address>2015-2020  |  Apache-2.0</address>

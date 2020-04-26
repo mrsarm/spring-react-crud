@@ -18,14 +18,17 @@ improving the original code with the following changes and features:
 - [X] The original application makes a lot of unnecessary requests to only show
       the paginated results (2 initial requests + 1 request × number of items
       in the page), that should be narrowed to just one request.
-- [X] Replace the depreacted library [rest.js](https://github.com/cujojs/rest) that
-      also does not support standard promises by a modern HTTP client:
+- [X] Remove the deprecated library [rest.js](https://github.com/cujojs/rest) that
+      also does not support standard promises, and replaced by a modern HTTP client:
       [Axios](https://github.com/axios/axios).
 - [X] Bookmarkable URLs with [React Router](https://reacttraining.com/react-router/).
 - [X] Add a REST browser for development purpose: HAL Browser.
 - [X] The entity `Employee` in the original guide is the `User` entity here,
       that was merged with the `Manager` entity.
-- [ ] Add better validations and errors handling.
+- [ ] Add better validations.
+- [X] Add better errors handling.
+- [X] Add spinners and loading messages when the app is waiting for
+      a response from the API
 - [X] Remove Websockets used to update the data in the frontend in "real time",
       most cases like this is unnecessary and a waste of resources,
       even using Websockets.

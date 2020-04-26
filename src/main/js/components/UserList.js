@@ -3,43 +3,85 @@ import {Button, Container, Pagination,
         PaginationItem, PaginationLink, Table} from "reactstrap"
 import {Link, withRouter} from 'react-router-dom'
 import UserItem from './UserItem'
+import Loading from "./Loading"
+import Message from "./Message"
+import LoadingPagination from "./LoadingPagination"
 
 
 class UserList extends React.Component {
 
   constructor(props) {
     super(props)
+    this.state = {isLoadingPagination: props.isLoadingPagination || false}
     this.handleNavFirst = this.handleNavFirst.bind(this)
     this.handleNavPrev = this.handleNavPrev.bind(this)
     this.handleNavNext = this.handleNavNext.bind(this)
     this.handleNavLast = this.handleNavLast.bind(this)
   }
 
-  handleNavFirst(e) {
+  _handleNavFirst(e, link) {
     e.preventDefault()
-    this.props.onNavigate(this.props.links.first.href)
+    this.setState({isLoadingPagination: true})
+    this.props.onNavigate(this.props.links[link].href)
+              .then(()=>this.setState({isLoadingPagination: false}))
   }
 
-  handleNavPrev(e) {
-    e.preventDefault()
-    this.props.onNavigate(this.props.links.prev.href)
-  }
-
-  handleNavNext(e) {
-    e.preventDefault()
-    this.props.onNavigate(this.props.links.next.href)
-  }
-
-  handleNavLast(e) {
-    e.preventDefault()
-    this.props.onNavigate(this.props.links.last.href)
-  }
+  handleNavFirst(e) { this._handleNavFirst(e, "first") }
+  handleNavPrev(e) { this._handleNavFirst(e, "prev") }
+  handleNavNext(e) { this._handleNavFirst(e, "next") }
+  handleNavLast(e) { this._handleNavFirst(e, "last") }
 
   render() {
-    const users = this.props.users.map(user =>
-      <UserItem key={user._links.self.href} user={user} onDelete={this.props.onDelete} onUpdate={this.props.onUpdate}/>
+    const navLinks = this.getNavLinks()
+    return (
+      <Container fluid>
+        <div className="float-right">
+          <Button color="success" tag={Link} to="/users/create">Add User</Button>
+        </div>
+        <h3>Users</h3>
+        <Table className="mt-4">
+          <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Notes</th>
+            <th width="8%"></th>
+          </tr>
+          </thead>
+          <tbody>
+            {this.props.isLoadingUsers &&
+              <tr key="isLoadingUsers">
+                <td><Loading/></td>
+              </tr>
+            }
+            {!this.props.isLoadingUsers &&
+              this.props.users.map(user =>
+                <UserItem key={user._links.self.href} user={user}
+                          onDelete={this.props.onDelete}
+                          onUpdate={this.props.onUpdate}/>
+              )
+            }
+          </tbody>
+        </Table>
+        {navLinks.length > 0 &&
+          <>
+            <Pagination>
+              {navLinks}
+              {this.state.isLoadingPagination &&
+                <LoadingPagination/>
+              }
+            </Pagination>
+          </>
+        }
+        {this.props.error &&
+          <Message error={this.props.error}/>
+        }
+      </Container>
     )
+  }
 
+  getNavLinks() {
     const navLinks = []
     if ("first" in this.props.links) {
       navLinks.push(
@@ -69,34 +111,7 @@ class UserList extends React.Component {
         </PaginationItem>
       )
     }
-
-    return (
-      <Container fluid>
-        <div className="float-right">
-          <Button color="success" tag={Link} to="/users/create">Add User</Button>
-        </div>
-        <h3>Users</h3>
-        <Table className="mt-4">
-          <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Notes</th>
-            <th width="8%"></th>
-          </tr>
-          </thead>
-          <tbody>
-            {users}
-          </tbody>
-        </Table>
-        {navLinks.length > 0 &&
-          <Pagination>
-            {navLinks}
-          </Pagination>
-        }
-      </Container>
-    )
+    return navLinks
   }
 }
 

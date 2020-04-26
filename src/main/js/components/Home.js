@@ -1,27 +1,44 @@
 import React from "react"
-import client from "./client"
+import {client} from "../client"
 import {Container} from "reactstrap"
 import UserList from "./UserList"
 import {withRouter} from "react-router-dom"
+import {reduceError} from "./errors"
 
 class Home extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {users: [], pageSize: 5, links: []}
+    this.state = {
+      users: [],
+      pageSize: 5,
+      links: [],
+      isLoadingUsers: true,
+      isLoadingPagination: false,
+      error: null
+    }
     this.onDelete = this.onDelete.bind(this)
     this.onNavigate = this.onNavigate.bind(this)
   }
 
   loadFromServer(pageSize) {
-    return client({url: 'users', params: {size: this.state.pageSize}}).then(response => {
-      this.setState({
-        users: response.data._embedded.users,
-        links: response.data._links,
-        pageSize: pageSize
+    return client({url: 'users', params: {size: this.state.pageSize}})
+      .then(response => {
+        this.setState({
+          users: response.data._embedded.users,
+          links: response.data._links,
+          pageSize: pageSize,
+          isLoadingUsers: false,
+          error: null
+        })
+        return response
       })
-      return response
-    })
+      .catch(ex=> {
+        this.setState({
+          error: reduceError(ex, "users", "getting"),
+          isLoadingUsers: false, isLoadingPagination: false
+        })
+      })
   }
 
   onDelete(user) {
@@ -44,11 +61,19 @@ class Home extends React.Component {
   }
 
   onNavigate(navUri) {
-    client.get(navUri).then(userCollection => {
+    return client.get(navUri).then(userCollection => {
       this.setState({
         users: userCollection.data._embedded.users,
         pageSize: this.state.pageSize,
-        links: userCollection.data._links
+        links: userCollection.data._links,
+        isLoadingUsers: false, isLoadingPagination: false,
+        error: null
+      })
+    })
+    .catch(ex=>{
+      this.setState({
+        error: reduceError(ex, "users", "getting"),
+        isLoadingUsers: false, isLoadingPagination: false
       })
     })
   }
@@ -59,6 +84,9 @@ class Home extends React.Component {
         <UserList users={this.state.users}
                   links={this.state.links}
                   pageSize={this.state.pageSize}
+                  isLoadingUsers={this.state.isLoadingUsers}
+                  isLoadingPagination={this.state.isLoadingPagination}
+                  error={this.state.error}
                   onNavigate={this.onNavigate}
                   onDelete={this.onDelete}/>
       </Container>
