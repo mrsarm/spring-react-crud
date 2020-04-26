@@ -1,5 +1,5 @@
 import React from "react"
-import client from "./client"
+import {client} from "../client"
 import {Container} from "reactstrap"
 import UserList from "./UserList"
 import {withRouter} from "react-router-dom"

@@ -4,7 +4,7 @@ import React from "react"
 import ReactDOM from "react-dom"
 import { withRouter, Link } from 'react-router-dom'
 import { Button, Container, Form, FormGroup, Label, Input, Row } from 'reactstrap'
-import client from "./client"
+import {post} from "../client"
 import {getTargetValue} from "../common"
 
 
@@ -40,12 +40,7 @@ class CreateUser extends React.Component {
   }
 
   onCreate(newUser) {
-    return client({
-      method: 'post',
-      url: 'users',
-      data: newUser,
-      headers: {'Content-Type': 'application/json'}
-    })
+    return post({url: 'users', data: newUser})
   }
 
   render() {

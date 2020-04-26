@@ -2,7 +2,7 @@
 
 import React from "react"
 import {Link, withRouter} from 'react-router-dom'
-import client from "./client"
+import {get, put} from "../client"
 import {applyEventToState} from "../common"
 import {Button, Container, Form, FormGroup, Input, Label, Row} from "reactstrap"
 import ReactDOM from "react-dom"
@@ -19,7 +19,7 @@ class UpdateUser extends React.Component {
   }
 
   componentDidMount() {
-    client.get(`/users/${this.props.match.params.id}`)
+    get(`/users/${this.props.match.params.id}`)
       .then(response=> {
         this.setState({"user": response.data})
       })
@@ -35,14 +35,9 @@ class UpdateUser extends React.Component {
   }
 
   onUpdate() {
-    return client({
-      method: 'put',
+    return put({
       url: this.state.user._links.self.href + '/profile',
-      data: this.state.user,
-      headers: {
-        'Content-Type': 'application/json'
-        //,'If-Match': user.headers.Etag
-      }
+      data: this.state.user
     })
   }
 
