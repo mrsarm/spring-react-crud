@@ -12,7 +12,12 @@ class UserList extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {isLoadingPagination: props.isLoadingPagination || false}
+    this.state = {
+      isLoadingPagination: props.isLoadingPagination || false,
+      allowCreateUser: this.props.loggedUser.isAdmin,
+      createUserTooltip: this.props.loggedUser.isAdmin ?
+          'Add User' : 'Only "Manager" users are allowed to create other users'
+    }
     this.handleNavFirst = this.handleNavFirst.bind(this)
     this.handleNavPrev = this.handleNavPrev.bind(this)
     this.handleNavNext = this.handleNavNext.bind(this)
@@ -35,8 +40,12 @@ class UserList extends React.Component {
     const navLinks = this.getNavLinks()
     return (
       <Container fluid>
-        <div className="float-right">
-          <Button color="success" tag={Link} to="/users/create">Add User</Button>
+        <div className="float-right" title={this.state.createUserTooltip}>
+          <Button color="success" tag={Link}
+                  to="/users/create"
+                  disabled={!this.state.allowCreateUser}>
+            Add User
+          </Button>
         </div>
         <h3>Users</h3>
         <Table className="mt-4">
