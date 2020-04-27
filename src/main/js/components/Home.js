@@ -3,7 +3,7 @@ import {client} from "../client"
 import {Container} from "reactstrap"
 import UserList from "./UserList"
 import {withRouter} from "react-router-dom"
-import {reduceError} from "./errors"
+import {reduceError} from "../errors"
 
 class Home extends React.Component {
 
@@ -42,17 +42,18 @@ class Home extends React.Component {
   }
 
   onDelete(user) {
-    client({method: 'delete', url: user._links.self.href}).then(response => {
+    return client({method: 'delete', url: user._links.self.href}).then(resp =>
       this.loadFromServer(this.state.pageSize)
-    }).catch(error => {
-      if (error.response.status == 403) {
-        alert('ACCESS DENIED: You are not authorized to delete ' +
-          user._links.self.href);
+    ).catch(ex => {
+      if (ex.response.status == 403) {
+        alert("Access DENIED: You are not authorized to " +
+              "delete the user with email " + user.email)
       } else {
-        //TODO Improve error handling!
-        console.error("Unknown error deleting user -", error)
-        alert('An Error ocurred')
+        //TODO Improve how the error is shown
+        console.error("Unknown error deleting user -", ex)
+        alert('Unexpected error')
       }
+      throw ex
     })
   }
 

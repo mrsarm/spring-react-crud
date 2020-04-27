@@ -6,9 +6,9 @@ import {get, put} from "../client"
 import {applyEventToState} from "../common"
 import {Button, Container, Form, FormGroup, Input, Label, Spinner, Row} from "reactstrap"
 import ReactDOM from "react-dom"
-import Loading from "./Loading";
-import Message from "./Message";
-import {reduceError} from "./errors";
+import Loading from "./Loading"
+import Message from "./Message"
+import {reduceError} from "../errors"
 
 
 class UpdateUser extends React.Component {
