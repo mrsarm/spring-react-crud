@@ -9,13 +9,18 @@ class Home extends React.Component {
 
   constructor(props) {
     super(props)
+    const loggedUserData = document.querySelector('#user-data').dataset
     this.state = {
       users: [],
       pageSize: 5,
       links: [],
       isLoadingUsers: true,
       isLoadingPagination: false,
-      error: null
+      error: null,
+      loggedUser: {
+        name: loggedUserData.name,
+        isAdmin: loggedUserData.isAdmin === 'true'
+      }
     }
     this.onDelete = this.onDelete.bind(this)
     this.onNavigate = this.onNavigate.bind(this)
@@ -88,6 +93,7 @@ class Home extends React.Component {
                   isLoadingUsers={this.state.isLoadingUsers}
                   isLoadingPagination={this.state.isLoadingPagination}
                   error={this.state.error}
+                  loggedUser={this.state.loggedUser}
                   onNavigate={this.onNavigate}
                   onDelete={this.onDelete}/>
       </Container>

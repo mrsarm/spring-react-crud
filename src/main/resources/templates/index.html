@@ -44,6 +44,9 @@
   </nav>
 
   <div id="react"></div>
+  <div id="user-data"
+       th:attr="data-name=${#authentication.name},data-is-admin=${#authorization.expression('hasRole(''ROLE_MANAGER'')')}">
+  </div>
 
   <!-- CDN versions. TODO: provide a built version from Webpack -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
