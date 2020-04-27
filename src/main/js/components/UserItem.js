@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
-import { Button, ButtonGroup, Spinner } from 'reactstrap'
+import { Button, ButtonGroup } from 'reactstrap'
 
 
 class UserItem extends React.Component {
@@ -19,8 +19,13 @@ class UserItem extends React.Component {
 
   handleDelete() {
     this.setState({isLoading: true})
-    this.props.onDelete(this.state.user)
-              .catch(()=>this.setState({isLoading: false}))
+    if (window.confirm("Do you really want to delete the user with "
+                     + "e-mail " + this.state.user.email + " ?")) {
+      this.props.onDelete(this.state.user)
+                .catch(() => this.setState({isLoading: false}))
+    } else {
+      this.setState({isLoading: false})
+    }
   }
 
   render() {
