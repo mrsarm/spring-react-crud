@@ -2,32 +2,43 @@
 
 import React from "react"
 import {Link, withRouter} from 'react-router-dom'
-import {get, put} from "../client"
+import {get, post, put} from "../client"
 import {applyEventToState} from "../common"
-import {Button, Container, Form, FormGroup, Input, Label, Spinner, Row} from "reactstrap"
+import {Button, Container, Form, FormGroup, Input, Label, Row} from "reactstrap"
 import ReactDOM from "react-dom"
 import Loading from "./Loading"
 import Message from "./Message"
 import {reduceError} from "../errors"
 
 
-class UpdateUser extends React.Component {
+class User extends React.Component {
 
   constructor(props) {
     super(props)
+    const isCreateUser = props.match.path === "/users/create"
     this.state = {
-      "user": {},
-      isLoadingUser: true, isSavingUser: false,
-      error: null, showForm: false
+      user: {
+        email: '',
+        firstName: '',
+        lastName: '',
+        roles: [],
+        description: ''
+      },
+      isCreateUser: isCreateUser,
+      isLoadingUser: !isCreateUser,
+      isSavingUser: false,
+      error: null,
+      showForm: isCreateUser
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
-    this.onUpdate = this.onUpdate.bind(this)
+    this.onSave = this.onSave.bind(this)
   }
 
   componentDidMount() {
-    get(`/users/${this.props.match.params.id}`)
-      .then(response=> {
+    if (!this.state.isCreateUser) {
+      get(`/users/${this.props.match.params.id}`)
+      .then(response => {
         this.setState({
           user: response.data,
           isLoadingUser: false, showForm: true
@@ -39,45 +50,56 @@ class UpdateUser extends React.Component {
           isLoadingUser: false, showForm: false
         })
       })
+    }
   }
 
   handleChange(event) {
     applyEventToState(event, this.state, "user", this.setState.bind(this))
   }
 
-  onUpdate() {
-    return put({
-      url: this.state.user._links.self.href + '/profile',
-      data: this.state.user
-    })
+  onSave() {
+    if (this.state.isCreateUser) {
+      return post({
+        url: 'users',
+        data: this.state.user
+      })
+    } else {
+      return put({
+        url: this.state.user._links.self.href + '/profile',
+        data: this.state.user
+      })
+    }
   }
 
   handleSubmit(e) {
     e.preventDefault()
     let password = ReactDOM.findDOMNode(this.refs["password"]).value.trim()
+    let newState
     if (password) {
       let user = {...this.state.user}
       user.password = password
-      this.setState({user: user, isSavingUser: true})
+      newState = {user: user, isSavingUser: true}
     } else {
       // user state was already updated, see `handleChange(event)`
-      this.setState({isSavingUser: true})
+      newState = {isSavingUser: true}
     }
-    this.onUpdate()
-      .then(response => {
-        window.location = "/"
-      }).catch(ex => {
-        this.setState({
-          error: reduceError(ex, "user", "update"),
-          isSavingUser: false
+    this.setState(newState, ()=>
+      this.onSave()
+        .then(response => {
+          window.location = "/"
+        }).catch(ex => {
+          this.setState({
+            error: reduceError(ex, "user", "saving"),
+            isSavingUser: false
+          })
         })
-      })
+    )
   }
 
   render() {
     return (
       <Container>
-        <h3>Update User</h3>
+        <h3>User Details</h3>
         {this.state.isLoadingUser &&
           <Loading/>
         }
@@ -94,7 +116,8 @@ class UpdateUser extends React.Component {
             <FormGroup>
               <Label for="password">Password</Label>
               <Input type="password" autoComplete="new-password" id="password" ref="password"
-                     placeholder="Password (leave blank if you don't want to change it)"/>
+                     placeholder={ "Password" + (this.state.isCreateUser ?
+                                    "" : " (leave blank if you don't want to change it)") }/>
             </FormGroup>
             <Row>
               <FormGroup className="col-md-6">
@@ -141,4 +164,4 @@ class UpdateUser extends React.Component {
   }
 }
 
-export default withRouter(UpdateUser)
+export default withRouter(User)
