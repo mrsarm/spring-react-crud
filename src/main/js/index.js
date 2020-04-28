@@ -5,8 +5,7 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import {client} from './client'
 import Home from './components/Home'
-import CreateUser from './components/CreateUser'
-import UpdateUser from './components/UpdateUser'
+import User from './components/User'
 import About from './components/About'
 
 
@@ -20,8 +19,8 @@ class Index extends React.Component {
         <Switch>
           <Route path="/" exact={true} component={Home}/>
           <Route path="/about" exact={true} component={About}/>
-          <Route path="/users/create" exact={true} component={CreateUser}/>
-          <Route path="/users/:id" component={UpdateUser}/>
+          <Route path="/users/create" exact={true} component={User}/>
+          <Route path="/users/:id" component={User}/>
         </Switch>
       </Router>
     )

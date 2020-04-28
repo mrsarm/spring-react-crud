@@ -27,6 +27,7 @@ function reduceError(
   }
   // Error does not come from a response
   if (!ex.response) {
+    logger(`Error ${action} ${entity} -`, ex)
     if (ex.message) {
       return {
         title: 'Unexpected error',
@@ -34,7 +35,6 @@ function reduceError(
         cause: ex
       }
     }
-    logger(`Unknown error ${action} ${entity} -`, ex)
     return {
       title: 'Unknown error',
       message: `An error occurred trying to ${action} the ${entity}. Try again later.`,
