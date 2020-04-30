@@ -1,11 +1,12 @@
 'use strict';
 
 import React from "react"
+import ReactDOM from "react-dom"
 import {Link, withRouter} from 'react-router-dom'
 import {get, post, put} from "../client"
 import {applyEventToState} from "../common"
-import {Button, Container, Form, FormGroup, Input, Label, Row} from "reactstrap"
-import ReactDOM from "react-dom"
+import {Button, Container, Input, Label, Row} from "reactstrap"
+import { AvForm, AvGroup, AvInput, AvFeedback } from 'availity-reactstrap-validation-safe'
 import Loading from "./Loading"
 import Message from "./Message"
 import {reduceError} from "../errors"
@@ -71,8 +72,8 @@ class User extends React.Component {
     }
   }
 
-  handleSubmit(e) {
-    e.preventDefault()
+  handleSubmit(event, values) {
+    event.preventDefault()
     let password = ReactDOM.findDOMNode(this.refs["password"]).value.trim()
     let newState
     if (password) {
@@ -107,57 +108,62 @@ class User extends React.Component {
           <Message error={this.state.error}/>
         }
         {!this.state.isLoadingUser && this.state.showForm &&
-          <Form>
-            <FormGroup>
+          <AvForm onValidSubmit={this.handleSubmit}>
+            <AvGroup>
               <Label for="email">Email</Label>
-              <Input type="text" placeholder="Email" name="email" id="email" value={this.state.user.email}
-                     onChange={this.handleChange}/>
-            </FormGroup>
-            <FormGroup>
+              <AvInput type="text" placeholder="Email" name="email" id="email" value={this.state.user.email}
+                     onChange={this.handleChange} required/>
+              <AvFeedback>Email required</AvFeedback>
+            </AvGroup>
+            <AvGroup>
               <Label for="password">Password</Label>
-              <Input type="password" autoComplete="new-password" id="password" ref="password"
-                     placeholder={ "Password" + (this.state.isCreateUser ?
+              <AvInput type="password" autoComplete="new-password" required={this.state.isCreateUser}
+                       id="password" ref="password" name="password"
+                       placeholder={ "Password" + (this.state.isCreateUser ?
                                     "" : " (leave blank if you don't want to change it)") }/>
-            </FormGroup>
+              <AvFeedback>Password required</AvFeedback>
+            </AvGroup>
             <Row>
-              <FormGroup className="col-md-6">
+              <AvGroup className="col-md-6">
                 <Label for="firstName">First name</Label>
-                <Input type="text" placeholder="First Name" name="firstName" id="firstName" ref="firstName"
-                       value={this.state.user.firstName}
+                <AvInput type="text" placeholder="First Name" name="firstName" id="firstName" ref="firstName"
+                       value={this.state.user.firstName} required
                        onChange={this.handleChange}/>
-              </FormGroup>
-              <FormGroup className="col-md-6">
+                <AvFeedback>First name required</AvFeedback>
+              </AvGroup>
+              <AvGroup className="col-md-6">
                 <Label for="lastName">Last name</Label>
-                <Input type="text" placeholder="Last Name" name="lastName" id="lastName" ref="lastName"
-                       value={this.state.user.lastName}
+                <AvInput type="text" placeholder="Last Name" name="lastName" id="lastName" ref="lastName"
+                       value={this.state.user.lastName} required
                        onChange={this.handleChange}/>
-              </FormGroup>
+                <AvFeedback>Last name required</AvFeedback>
+              </AvGroup>
             </Row>
             <Row>
-              <FormGroup className="col-md-6">
+              <AvGroup className="col-md-6">
                 <Label for="roles">Roles</Label>
                 <Input type="select" name="roles" id="roles" ref="roles" multiple
                        value={this.state.user.roles} onChange={this.handleChange}>
                   <option value="ROLE_MANAGER">Manager</option>
                 </Input>
-              </FormGroup>
-              <FormGroup className="col-md-6">
+              </AvGroup>
+              <AvGroup className="col-md-6">
                 <Label for="description">Notes</Label>
                 <Input type="textarea" name="description" id="description" ref="description"
                        value={this.state.user.description}
                        onChange={this.handleChange} rows="3" placeholder="Notes (visible for the user)"/>
-              </FormGroup>
+              </AvGroup>
             </Row>
             {this.state.error &&
               <Message error={this.state.error}/>
             }
-            <FormGroup>
-              <Button color="primary" onClick={this.handleSubmit} disabled={this.state.isSavingUser}>
+            <AvGroup>
+              <Button color="primary" disabled={this.state.isSavingUser}>
                 {this.state.isSavingUser ? 'Saving...' : 'Save' }
               </Button>{' '}
               <Button color="secondary" tag={Link} to="/">Cancel</Button>
-            </FormGroup>
-          </Form>
+            </AvGroup>
+          </AvForm>
         }
       </Container>
     )
