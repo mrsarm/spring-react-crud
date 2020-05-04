@@ -43,7 +43,7 @@
     </div>
   </nav>
 
-  <div id="react"></div>
+  <div id="root"></div>
   <div id="user-data"
        th:attr="data-name=${#authentication.name},data-is-admin=${#authorization.expression('hasRole(''ROLE_MANAGER'')')}">
   </div>

@@ -12,7 +12,7 @@ class Home extends React.Component {
     const loggedUserData = document.querySelector('#user-data').dataset
     this.state = {
       users: [],
-      pageSize: 5,
+      pageSize: 10,
       links: [],
       isLoadingUsers: true,
       isLoadingPagination: false,
