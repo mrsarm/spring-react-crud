@@ -41,7 +41,7 @@ class UserList extends React.Component {
     return (
       <Container fluid>
         <div className="float-right" title={this.state.createUserTooltip}>
-          <Button color="success" tag={Link}
+          <Button color="success" tag={Link} className="d-print-none"
                   to="/users/create"
                   disabled={!this.state.allowCreateUser}>
             Add User
@@ -52,10 +52,10 @@ class UserList extends React.Component {
           <thead>
           <tr>
             <th>First Name</th>
-            <th>Last Name</th>
+            <th className="d-none d-sm-table-cell">Last Name</th>
             <th>Email</th>
-            <th>Notes</th>
-            <th width="8%"></th>
+            <th className="d-none d-sm-table-cell">Notes</th>
+            <th width="8%" className="d-print-none"></th>
           </tr>
           </thead>
           <tbody>

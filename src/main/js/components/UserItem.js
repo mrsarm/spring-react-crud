@@ -32,10 +32,10 @@ class UserItem extends React.Component {
     return (
       <tr key={this.state.user._links.self.href}>
         <td style={{whiteSpace: 'nowrap'}}>{this.state.user.firstName}</td>
-        <td>{this.state.user.lastName}</td>
+        <td className="d-none d-sm-table-cell">{this.state.user.lastName}</td>
         <td>{this.state.user.email}</td>
-        <td>{this.state.user.description}</td>
-        <td>
+        <td className="d-none d-sm-table-cell">{this.state.user.description}</td>
+        <td className="d-print-none">
           <ButtonGroup>
             <Button size="sm" color="primary" disabled={this.state.isLoading}
                     tag={Link} to={this.state.editUrl}>Edit</Button>
