@@ -24,6 +24,7 @@ public class HomeController {
 	@RequestMapping(value = {
 		"/",
 		"/about",
+		"/users",
 		"/users/create",
 		"/users/{id}"
 	})
