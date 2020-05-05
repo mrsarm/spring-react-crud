@@ -3,9 +3,9 @@ import {Button, Container, Pagination,
         PaginationItem, PaginationLink, Table} from "reactstrap"
 import {Link, withRouter} from 'react-router-dom'
 import UserItem from './UserItem'
-import Loading from "./Loading"
-import Message from "./Message"
-import LoadingPagination from "./LoadingPagination"
+import Loading from "../common/Loading"
+import Message from "../common/Message"
+import LoadingPagination from "../common/LoadingPagination"
 
 
 class UserList extends React.Component {

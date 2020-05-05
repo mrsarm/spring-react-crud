@@ -6,7 +6,7 @@ import {
 import React from 'react'
 import Home from "./Home"
 import About from "./About"
-import User from "./User"
+import User from "./user/User"
 
 function App() {
   return (

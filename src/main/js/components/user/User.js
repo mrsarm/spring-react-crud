@@ -3,13 +3,13 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import {Link, withRouter} from 'react-router-dom'
-import {get, post, put} from "../client"
-import {applyEventToState} from "../common"
+import {get, post, put} from "../../client"
+import {applyEventToState} from "../../common"
 import {Button, Container, Input, Label, Row} from "reactstrap"
 import { AvForm, AvGroup, AvInput, AvFeedback } from 'availity-reactstrap-validation-safe'
-import Loading from "./Loading"
-import Message from "./Message"
-import {reduceError} from "../errors"
+import Loading from "../common/Loading"
+import Message from "../common/Message"
+import {reduceError} from "../../errors"
 
 
 class User extends React.Component {
