@@ -31,7 +31,7 @@ class User extends React.Component {
       error: null,
       showForm: isCreateUser
     }
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleValidSubmit = this.handleValidSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.onSave = this.onSave.bind(this)
   }
@@ -72,8 +72,7 @@ class User extends React.Component {
     }
   }
 
-  handleSubmit(event, values) {
-    event.preventDefault()
+  handleValidSubmit(event, values) {
     let password = ReactDOM.findDOMNode(this.refs["password"]).value.trim()
     let newState
     if (password) {
@@ -108,7 +107,7 @@ class User extends React.Component {
           <Message error={this.state.error}/>
         }
         {!this.state.isLoadingUser && this.state.showForm &&
-          <AvForm onValidSubmit={this.handleSubmit}>
+          <AvForm onValidSubmit={this.handleValidSubmit}>
             <AvGroup>
               <Label for="email">Email</Label>
               <AvInput type="text" placeholder="Email" name="email" id="email" value={this.state.user.email}
