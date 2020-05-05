@@ -15,37 +15,9 @@
 
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="/">Spring React CRUD</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="/">Users</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/about">About</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-             role="button" data-toggle="dropdown" aria-haspopup="true"
-             aria-expanded="false" th:text="${#authentication.name}">
-                user
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/logout">Log-out</a>
-          </div>
-        </li>
-      </ul>
-    </div>
-  </nav>
-
   <div id="root"></div>
   <div id="user-data"
-       th:attr="data-name=${#authentication.name},data-is-admin=${#authorization.expression('hasRole(''ROLE_MANAGER'')')}">
+       th:attr="data-username=${#authentication.name},data-is-admin=${#authorization.expression('hasRole(''ROLE_MANAGER'')')}">
   </div>
 
   <!-- CDN versions. TODO: provide a built version from Webpack -->
@@ -53,6 +25,5 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
   <script src="/built/bundle.js"></script>
-
 </body>
 </html>

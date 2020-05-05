@@ -8,7 +8,7 @@
  *       "cause": ex
  *     }
  *
- * @param ex the exception
+ * @param ex the exception or an error message string
  * @param entity the object name related with the error, eg. "user", "inbox"...
  * @param action the event that caused the error, eg. "update", "delete"...
  * @param logger (default `console.error`) a function to log unknown errors
