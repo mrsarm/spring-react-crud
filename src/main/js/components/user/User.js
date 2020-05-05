@@ -86,13 +86,13 @@ class User extends React.Component {
     this.setState(newState, ()=>
       this.onSave()
         .then(response => {
-          window.location = "/"
-        }).catch(ex => {
+          this.props.history.push('/')
+        }).catch(ex =>
           this.setState({
             error: reduceError(ex, "user", "saving"),
             isSavingUser: false
           })
-        })
+        )
     )
   }
 
