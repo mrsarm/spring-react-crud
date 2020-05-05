@@ -5,7 +5,7 @@ import {
   Switch,
 } from "react-router-dom"
 import React from 'react'
-import Home from "./Home"
+import UsersHome from "./user/UsersHome"
 import About from "./About"
 import User from "./user/User"
 import Navbar from "./Navbar"
@@ -34,7 +34,7 @@ class App extends React.Component {
             render={() => <Redirect to="/users" />}
           />
           <Route path="/users" exact={true}>
-            <Home loggedUser={this.state.loggedUser}/>
+            <UsersHome loggedUser={this.state.loggedUser}/>
           </Route>
           <Route path="/users/create" exact={true} component={User}/>
           <Route path="/users/:id" component={User}/>

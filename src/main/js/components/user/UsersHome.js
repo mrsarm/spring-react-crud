@@ -1,11 +1,11 @@
 import React from "react"
-import {client} from "../client"
+import {client} from "../../client"
 import {Container} from "reactstrap"
-import UserList from "./user/UserList"
+import UserList from "./UserList"
 import {withRouter} from "react-router-dom"
-import {reduceError} from "../errors"
+import {reduceError} from "../../errors"
 
-class Home extends React.Component {
+class UsersHome extends React.Component {
 
   constructor(props) {
     super(props)
@@ -96,4 +96,4 @@ class Home extends React.Component {
   }
 }
 
-export default withRouter(Home)
+export default withRouter(UsersHome)
