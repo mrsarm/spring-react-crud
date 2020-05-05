@@ -45,7 +45,7 @@ class UsersHome extends React.Component {
     return client({method: 'delete', url: user._links.self.href}).then(resp =>
       this.loadFromServer(this.state.pageSize)
     ).catch(ex => {
-      if (ex.response.status == 403) {
+      if (ex.response.status === 403) {
         alert("Access DENIED: You are not authorized to " +
               "delete the user with email " + user.email)
       } else {

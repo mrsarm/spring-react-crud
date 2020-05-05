@@ -23,7 +23,8 @@ class About extends React.Component {
         </ul>
         <p>
           <strong>Source Code</strong>:&nbsp;
-          <a href="https://github.com/mrsarm/spring-react-crud" target="_blank">
+          <a href="https://github.com/mrsarm/spring-react-crud"
+             target="_blank" rel="noopener noreferrer">
             https://github.com/mrsarm/spring-react-crud
           </a>
         </p>
