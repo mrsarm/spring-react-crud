@@ -1,4 +1,4 @@
-import {Container, Spinner} from "reactstrap"
+import {Spinner} from "reactstrap"
 import React from "react"
 
 function Loading(props) {
