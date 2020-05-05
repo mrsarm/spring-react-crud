@@ -1,21 +1,24 @@
 const axios = require('axios')
 
+const appData = document.querySelector('#app-data').dataset
+const apiBaseUrl = appData.apiUrl || '/api'
+
 const client = axios.create({
-  baseURL: '/api/',
+  baseURL: apiBaseUrl,
   //timeout: 1000,
   headers: {'Accept': 'application/hal+json'}
 })
 
 const get = axios.create({
   method: 'get',
-  baseURL: '/api/',
+  baseURL: apiBaseUrl,
   //timeout: 1000,
   headers: {'Accept': 'application/hal+json'}
 })
 
 const post = axios.create({
   method: 'post',
-  baseURL: '/api/',
+  baseURL: apiBaseUrl,
   //timeout: 1000,
   headers: {
     'Content-Type': 'application/json',
@@ -25,7 +28,7 @@ const post = axios.create({
 
 const put = axios.create({
   method: 'put',
-  baseURL: '/api/',
+  baseURL: apiBaseUrl,
   //timeout: 1000,
   headers: {
     'Content-Type': 'application/json',
@@ -35,7 +38,7 @@ const put = axios.create({
 
 const del = axios.create({
   method: 'delete',
-  baseURL: '/api/',
+  baseURL: apiBaseUrl,
   //timeout: 1000,
   headers: {'Accept': 'application/hal+json'}
 })

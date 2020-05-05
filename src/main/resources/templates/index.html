@@ -19,6 +19,9 @@
   <div id="user-data"
        th:attr="data-username=${#authentication.name},data-is-admin=${#authorization.expression('hasRole(''ROLE_MANAGER'')')}">
   </div>
+  <div id="app-data"
+       data-api-url="/api"><!-- Replace with Spring configurations and th:attr ... -->
+  </div>
 
   <!-- CDN versions. TODO: provide a built version from Webpack -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
