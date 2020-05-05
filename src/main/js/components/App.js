@@ -8,6 +8,7 @@ import Home from "./Home"
 import About from "./About"
 import User from "./user/User"
 import Navbar from "./Navbar"
+import RouteNoMatch from "./RouteNoMatch"
 
 class App extends React.Component {
 
@@ -33,6 +34,9 @@ class App extends React.Component {
           <Route path="/about" exact={true} component={About}/>
           <Route path="/users/create" exact={true} component={User}/>
           <Route path="/users/:id" component={User}/>
+          <Route path="*">
+            <RouteNoMatch />
+          </Route>
         </Switch>
       </Router>
     )
