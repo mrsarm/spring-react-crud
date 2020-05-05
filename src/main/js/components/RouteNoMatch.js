@@ -1,15 +1,21 @@
 import React from "react"
-import {useLocation} from "react-router-dom"
+import {Alert, Container} from "reactstrap"
+import {Link, useLocation} from "react-router-dom"
 
 function RouteNoMatch() {
   let location = useLocation()
 
   return (
-    <div>
-      <h3>
-        No match for <code>{location.pathname}</code>
-      </h3>
-    </div>
+    <Container>
+      <Alert color="warning">
+        <h4>
+          &#9888; No match for <code>{location.pathname}</code>
+        </h4>
+        <p>
+          > Go to <Link to="/">Home</Link>.
+        </p>
+      </Alert>
+    </Container>
   )
 }
 
