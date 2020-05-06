@@ -47,7 +47,7 @@ class User extends React.Component {
       })
       .catch(ex=> {
         this.setState({
-          error: reduceError(ex, "user", "getting"),
+          error: reduceError(ex, "user", "get"),
           isLoadingUser: false, showForm: false
         })
       })
@@ -89,7 +89,7 @@ class User extends React.Component {
           this.props.history.push('/')
         }).catch(ex =>
           this.setState({
-            error: reduceError(ex, "user", "saving"),
+            error: reduceError(ex, "user", "save"),
             isSavingUser: false
           })
         )

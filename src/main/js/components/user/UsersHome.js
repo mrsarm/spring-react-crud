@@ -35,7 +35,7 @@ class UsersHome extends React.Component {
       })
       .catch(ex=> {
         this.setState({
-          error: reduceError(ex, "users", "getting"),
+          error: reduceError(ex, "users", "get"),
           isLoadingUsers: false, isLoadingPagination: false
         })
       })
@@ -73,7 +73,7 @@ class UsersHome extends React.Component {
     })
     .catch(ex=>{
       this.setState({
-        error: reduceError(ex, "users", "getting"),
+        error: reduceError(ex, "users", "get"),
         isLoadingUsers: false, isLoadingPagination: false
       })
     })
