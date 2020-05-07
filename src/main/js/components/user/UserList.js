@@ -64,7 +64,10 @@ class UserList extends React.Component {
                 <td><Loading/></td>
               </tr>
             }
-            {!this.props.isLoadingUsers &&
+            {!this.props.isLoadingUsers && this.props.users.length === 0 &&
+              <tr><td><strong>&#9746; No users found.</strong></td></tr>
+            }
+            {!this.props.isLoadingUsers && this.props.users.length > 0 &&
               this.props.users.map(user =>
                 <UserItem key={user._links.self.href} user={user}
                           onDelete={this.props.onDelete}
