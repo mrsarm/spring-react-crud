@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * Gets the value from the target event.
  * @param target can be the target object from an event (event.target) or
