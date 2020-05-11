@@ -28,6 +28,13 @@ function reduceError(
   // Error does not come from a response
   if (!ex.response) {
     logger(`Error ${action} ${entity} -`, ex)
+    if (ex.message === 'Network Error') {
+      return {
+        title: '\uD83D\uDD0C Network Error',
+        message: 'You are having network issues, check your Internet connection.',
+        cause: ex
+      }
+    }
     if (ex.message) {
       return {
         title: 'Unexpected error',
