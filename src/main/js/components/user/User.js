@@ -155,10 +155,10 @@ class User extends React.Component {
               <Message error={this.state.error}/>
             }
             <AvGroup>
-              <Button color="primary" disabled={this.state.isSavingUser}>
+              <Button color="primary" disabled={this.state.isSavingUser} className="d-print-none">
                 {this.state.isSavingUser ? 'Saving...' : 'Save' }
               </Button>&nbsp;&nbsp;
-              <Button color="secondary" tag={Link} to="/">Cancel</Button>
+              <Button color="secondary" tag={Link} to="/" className="d-print-none">Cancel</Button>
             </AvGroup>
           </AvForm>
         }

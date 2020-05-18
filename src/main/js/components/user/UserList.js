@@ -48,7 +48,7 @@ class UserList extends React.Component {
           </Button>
         </div>
         <h3>Users</h3>
-        <Table className="mt-4">
+        <Table className="mt-4 table-hover">
           <thead>
           <tr>
             <th>First Name</th>
