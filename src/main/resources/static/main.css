@@ -11,3 +11,9 @@ body {
 .container, .container-fluid {
   margin-top: 20px;
 }
+
+.container-message {
+  margin-top: 15px;
+  padding-left: 0;
+  padding-right: 0;
+}

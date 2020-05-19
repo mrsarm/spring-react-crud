@@ -64,7 +64,7 @@ class UserList extends React.Component {
                 <td><Loading/></td>
               </tr>
             }
-            {!this.props.isLoadingUsers && this.props.users.length === 0 &&
+            {!this.props.isLoadingUsers && !this.props.error && this.props.users.length === 0 &&
               <tr><td><strong>&#9746; No users found.</strong></td></tr>
             }
             {!this.props.isLoadingUsers && this.props.users.length > 0 &&
@@ -86,9 +86,7 @@ class UserList extends React.Component {
             </Pagination>
           </>
         }
-        {this.props.error &&
-          <Message error={this.props.error}/>
-        }
+        <Message error={this.props.error}/>
       </Container>
     )
   }

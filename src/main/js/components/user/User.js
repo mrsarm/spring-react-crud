@@ -31,7 +31,7 @@ class User extends React.Component {
     }
     this.handleValidSubmit = this.handleValidSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
-    this.onSave = this.onSave.bind(this)
+    this.save = this.save.bind(this)
   }
 
   componentDidMount() {
@@ -56,7 +56,7 @@ class User extends React.Component {
     applyEventToState(event, this.state, "user", this.setState.bind(this))
   }
 
-  onSave() {
+  save() {
     if (this.state.isCreateUser) {
       return post({
         url: 'users',
@@ -82,7 +82,7 @@ class User extends React.Component {
       newState = {isSavingUser: true}
     }
     this.setState(newState, ()=>
-      this.onSave()
+      this.save()
         .then(response => {
           this.props.history.push('/')
         }).catch(ex =>
@@ -98,12 +98,8 @@ class User extends React.Component {
     return (
       <Container>
         <h3>User Details</h3>
-        {this.state.isLoadingUser &&
-          <Loading/>
-        }
-        {this.state.error && !this.state.showForm &&
-          <Message error={this.state.error}/>
-        }
+        <Loading display={this.state.isLoadingUser}/>
+        <Message error={this.state.error} display={!this.state.showForm}/>
         {!this.state.isLoadingUser && this.state.showForm &&
           <AvForm onValidSubmit={this.handleValidSubmit}>
             <AvGroup>
@@ -151,9 +147,7 @@ class User extends React.Component {
                        onChange={this.handleChange} rows="3" placeholder="Notes (visible for the user)"/>
               </AvGroup>
             </Row>
-            {this.state.error &&
-              <Message error={this.state.error}/>
-            }
+            <Message error={this.state.error}/>
             <AvGroup>
               <Button color="primary" disabled={this.state.isSavingUser} className="d-print-none">
                 {this.state.isSavingUser ? 'Saving...' : 'Save' }

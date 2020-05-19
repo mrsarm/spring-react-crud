@@ -4,8 +4,10 @@ import React from "react"
 function Loading({
     message = "Loading...",
     size = 'sm',
-    color = 'primary'
+    color = 'primary',
+    display = true
 }) {
+  if (!display) return ''
   return (
     <>
       <Spinner size={size} color={color}/>
