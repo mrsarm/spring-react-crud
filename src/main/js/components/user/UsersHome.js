@@ -11,7 +11,7 @@ class UsersHome extends React.Component {
     super(props)
     this.state = {
       users: [],
-      pageSize: 10,
+      pageSize: 20,
       links: [],
       isLoadingUsers: true,
       isLoadingPagination: false,
