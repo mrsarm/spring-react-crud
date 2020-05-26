@@ -41,12 +41,7 @@ class UserItem extends React.Component {
                     tag={Link} to={this.state.editUrl}>Edit</Button>
             <Button size="sm" color="danger" disabled={this.state.isLoading}
                     onClick={this.handleDelete}>
-              {!this.state.isLoading &&
-                'Delete'
-              }
-              {this.state.isLoading &&
-                'Dele...'
-              }
+              {!this.state.isLoading ? 'Delete' : 'Dele...'}
             </Button>
           </ButtonGroup>
         </td>
