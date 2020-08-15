@@ -15,62 +15,13 @@
  */
 package ar.com.mrdev.app.user;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.jpa.repository.support.JpaEntityInformation;
-import org.springframework.data.jpa.repository.support.JpaEntityInformationSupport;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
-import org.springframework.transaction.annotation.Transactional;
-import javax.persistence.EntityManager;
-import java.util.Arrays;
-import java.util.List;
-
-
-interface UserRepositoryCustom {
-	<U extends User> U save(U user);
-}
-
-@Slf4j
-class UserRepositoryCustomImpl implements UserRepositoryCustom {
-
-	final JpaEntityInformation<User, ?> entityInformation;
-	EntityManager em;
-
-	public UserRepositoryCustomImpl(EntityManager entityManager) {
-		this.entityInformation = JpaEntityInformationSupport.getEntityInformation(User.class, entityManager);
-		this.em = entityManager;
-	}
-
-	@Override
-	@Transactional
-	public <U extends User> U save(U user) {
-		// Check roles are valid
-		List<String> newRoles = Arrays.asList(user.getRoles());
-		if (!User.ROLES.containsAll(newRoles)) {
-			throw new IllegalArgumentException("Some user roles are invalid " + newRoles);
-		}
-
-		if (entityInformation.isNew(user)) {
-			log.info("Creating new {}", user);
-			if (user.getPassword()==null) {
-				throw new IllegalArgumentException("Null password");
-			}
-			em.persist(user);
-			return user;
-		} else {
-			log.info("Updating existent {}", user);
-			return em.merge(user);
-		}
-	}
-}
-
-
-
 
 @RepositoryRestResource
-public interface UserRepository extends PagingAndSortingRepository<User, Long>, UserRepositoryCustom {
+public interface UserRepository extends PagingAndSortingRepository<User, Long> {
 
 	User findByEmail(String email);
 
