@@ -36,6 +36,8 @@ improving the original code with the following changes and features:
 - [X] Split the JS code in different modules to make it more readable (in the
       original code all the React classes are in just one .js file).
 - [ ] Add more features, specially to handle users ...
+- [X] Optionally use a real database: **PostgreSQL** :elephant:
+  (check [versions](#versions)).
 
 
 Requirements
@@ -77,7 +79,6 @@ the `-u user:pass` argument:
 
     $ curl -u gf@local:admin http://localhost:8080/api/users
 
-
 #### Hot reloading
 
 To edit Javascript or CSS resources and see the changes in the
@@ -87,6 +88,37 @@ a command line:
     $ npm run watch
 
 And leave it running (if it doesn't work, try with `target/node/npm run watch`).
+
+
+#### Packaging
+
+Pack the application in a single .jar with all the dependencies
+and the web server with:
+
+    $ mvn package
+
+Then you can run the .jar with:
+
+    $ java -jar target/app-0.0.1-SNAPSHOT.jar
+
+
+### Tests
+
+For now only a test that checks that the spring context
+can be loaded is in the source code. Execute with:
+
+    $ mvn test
+
+
+Versions
+--------
+
+For now there are two versions, each one with its own branch:
+
+- `master`: main version with an in-memory database (H2) to quickly
+  launch the application without the need of a database installed.
+- `postgres`: modified version with PostgreSQL configured,
+  ready for "production" usage.
 
 
 About
