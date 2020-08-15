@@ -9,4 +9,5 @@ public interface Constants {
 
 	int SIZE_FIELD = 50;
 	int SIZE_DESCRIPTION = 400;
+	int SIZE_LONG_DESCRIPTION = 16_000;
 }

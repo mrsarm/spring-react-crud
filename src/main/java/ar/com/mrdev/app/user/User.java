@@ -49,7 +49,7 @@ public class User {
 	private @NotNull @Size(min = 0, max = SIZE_FIELD) String lastName;
 	private @Size(min = 0, max = SIZE_DESCRIPTION) String description;
 
-	@Column(unique=true)
+	@Column(unique=true, nullable = false)
 	@Pattern(regexp = EMAIL_REGEXP, flags = CASE_INSENSITIVE, message="Invalid email address")
 	private @NotNull @Size(min = 3, max = 50) String email;
 
