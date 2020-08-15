@@ -1,0 +1,14 @@
+server:
+  port: ${PORT:8080}
+
+spring:
+  profiles:
+    active: ${APP_ENV:development}
+  data:
+    rest:
+      base-path: /api
+  mvc:
+    log-resolved-exception: false
+  h2:
+    console:
+      enabled: false
