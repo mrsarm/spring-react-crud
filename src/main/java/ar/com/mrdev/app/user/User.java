@@ -33,7 +33,7 @@ import static javax.validation.constraints.Pattern.Flag.CASE_INSENSITIVE;
 
 @Data
 @ToString(exclude = {"password", "clearPassword"})
-@Entity
+@Entity(name = "users")
 public class User {
 
 	public static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
@@ -42,7 +42,9 @@ public class User {
 	public static final String ROLE_MANAGER = "ROLE_MANAGER";
 	public static final List<String> ROLES = Arrays.asList(ROLE_MANAGER);
 
-	private @Id @GeneratedValue Long id;
+	private @Id @GeneratedValue
+	Long id;
+
 	private @NotNull @Size(min = 3, max = SIZE_FIELD) String firstName;
 	private @NotNull @Size(min = 0, max = SIZE_FIELD) String lastName;
 	private @Size(min = 0, max = SIZE_DESCRIPTION) String description;
