@@ -44,11 +44,17 @@
 			<artifactId>spring-data-rest-hal-browser</artifactId>
 		</dependency>
 
-		<!-- H2 in-memory DB -->
+		<!-- H2 in-memory DB
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
+		</dependency-->
+
+		<!-- PostgreSQL -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
 		</dependency>
 
 		<dependency>

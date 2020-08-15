@@ -12,3 +12,51 @@ spring:
   h2:
     console:
       enabled: false
+  ## PostgreSQL connection pool
+  datasource:
+    # Create user and DB with:
+    #     CREATE USER spring_crud;
+    #     \password spring_crud
+    #     CREATE DATABASE spring_crud_dev OWNER spring_crud;
+    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/spring_crud_dev}
+    username: ${DB_USER:spring_crud}
+    password: ${DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      # More info about these properties: https://github.com/brettwooldridge/HikariCP#configuration-knobs-baby
+      connection-timeout: ${DB_CONN_TIMEOUT:5000}
+      leak-detection-threshold: ${DB_LEAK_DETECTION_THRESHOLD:300000}  # check each 5 min
+      idle-timeout: ${DB_IDLE_TIMEOUT:300000}   # 300000 = 5 min
+      minimum-idle: ${DB_MINIMUM_IDLE:1}
+      maximum-pool-size: ${DB_MAXIMUM_POOL_SIZE:5}
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none  # Do NOT change this, valid values: none, validate, create, update, create-drop
+      naming:
+        # camelCase to snake_case strategy when queries are created
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+    open-in-view: false
+    show-sql: false
+
+
+###############    development config   ###############
+---
+spring:
+  profiles: development
+  jpa:
+    hibernate:
+      ddl-auto: update  # Do NOT change this, for now `none' or `validate' allowed
+    show-sql: true
+
+###################   test config   ###################
+---
+spring:
+  profiles: test
+  jpa:
+    hibernate:
+      ddl-auto: create-drop # Do NOT set this in production
+    show-sql: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/spring_crud_test
