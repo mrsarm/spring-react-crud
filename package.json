@@ -14,7 +14,7 @@
     "availity-reactstrap-validation-safe": "^2.6.1",
     "axios": "^0.20.0",
     "bootstrap": "^4.4.1",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
