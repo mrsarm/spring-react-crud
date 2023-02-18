@@ -47,7 +47,7 @@ Requirements
 - **Maven 3+**, or you can use the script `./mvnw` instead that it will install
   Maven 3.9 in the user space automatically if the required version isn't there
 
-To build the web assets the project uses **Node.js**, **Webpack**, ...
+To build the web assets the project uses **Node.js** (v18), **Webpack**, ...
 but all of them are installed and triggered by Maven automatically
 in the user space.
 
