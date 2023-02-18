@@ -12,3 +12,5 @@ spring:
   h2:
     console:
       enabled: false
+  datasource:
+    username: sa
