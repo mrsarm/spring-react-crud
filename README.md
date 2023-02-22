@@ -6,54 +6,25 @@ React.js and Spring Data REST - CRUD
 CRUD application with security enabled: a PoC with
 ReactJS in the frontend and Spring Data REST in the backend.
 
-Based in the source code here: https://github.com/spring-guides/tut-react-and-spring-data-rest
+## 🚀 Stack
 
-Guide: https://spring.io/guides/tutorials/react-and-spring-data-rest
-
-The **goal** is to learn better how to use React, and complete the guide but
-improving the original code with the following changes and features:
-
-- [X] Make it more appealing, using Bootstrap / HTML5,
-      ([reactstrap](https://reactstrap.github.io/)).
-- [X] The original application makes a lot of unnecessary requests to only show
-      the paginated results (2 initial requests + 1 request × number of items
-      in the page), that should be narrowed to just one request.
-- [X] Remove the deprecated library [rest.js](https://github.com/cujojs/rest) that
-      also does not support standard promises, and replaced by a modern HTTP client:
-      [Axios](https://github.com/axios/axios).
-- [X] Bookmarkable URLs with [React Router](https://reacttraining.com/react-router/).
-- [X] Add a REST browser for development purpose: HAL Browser.
-- [X] The entity `Employee` in the original guide is the `User` entity here,
-      that was merged with the `Manager` entity.
-- [X] Add better client-side validations.
-- [ ] Add better server-side validations.
-- [X] Add better errors handling.
-- [X] Add spinners and loading messages when the app is waiting for
-      a response from the API
-- [X] Remove Websockets used to update the data in the frontend in "real time",
-      most cases like this is unnecessary and a waste of resources,
-      even using Websockets.
-- [X] Split the JS code in different modules to make it more readable (in the
-      original code all the React classes are in just one .js file).
-- [ ] Add more features, specially to handle users ...
-- [X] Optionally use a real database: **PostgreSQL** :elephant:
-  (check [versions](#versions)).
+- **Backend**: Java 17 LTS, Spring Boot 3 (web, security, JPA).
+- **Frontend**: ReactJS, React Router, Bootstrap,
+  Axios, Reactstrap, Node 18 / Npm / Webpack (build).
 
 
-Requirements
-------------
+### ⚙️ Requirements
 
 - **JDK 17+**
 - **Maven 3+**, or you can use the script `./mvnw` instead that it will install
   Maven 3.9 in the user space automatically if the required version isn't there
 
-To build the web assets the project uses **Node.js** (v18), **Webpack**, ...
+To build the web assets the project uses **Node.js**, **Webpack**, ...
 but all of them are installed and triggered by Maven automatically
 in the user space.
 
 
-Usage
------
+## 🎮 Usage
 
 Launch the application with:
 
@@ -62,14 +33,14 @@ Launch the application with:
 Or use `./mvnw` instead of `mvn` (`mvnw.cmd` for Window platforms).
 
 Then access the application with http://localhost:8080/, or access
-to the API with http://localhost:8080/api/
+to the API with http://localhost:8080/api/.
 
-One of the user to access the app with privileged access is `frodo@local`,
-and the password `admin`. Check the initial dataset in
+One of the users to access the app with privileged permissions is `frodo@local`,
+and the password `admin`. Check and edit the initial dataset in
 the [DatabaseLoader.java](src/main/java/ar/com/mrdev/app/user/DatabaseLoader.java#L46-L50)
 file.
 
-If you access the API through the HAL browser, it will required to sign-in
+If you access the API through the HAL browser, it will require to sign-in
 like with the dash panel using a web page provided by Spring Security,
 but if you are going to consume the API with a 3rd party tool
 you will need to authenticate using
@@ -79,7 +50,7 @@ the `-u user:pass` argument:
 
     $ curl -u gf@local:admin http://localhost:8080/api/users
 
-#### Hot reloading
+#### 🌶 Hot reloading
 
 To edit Javascript or CSS resources and see the changes in the
 browser without the need to re-launch the application, execute within
@@ -90,25 +61,29 @@ a command line:
 And leave it running (if it doesn't work, try with `target/node/npm run watch`).
 
 
-#### Packaging
+#### 📦 Packaging
 
 Pack the application in a single .jar with all the dependencies
 and the web server with:
 
     $ mvn package
 
+Add the argument `-Dmaven.test.skip` if you don't want to run the tests before packaging.
+
 Then you can run the .jar with:
 
     $ java -jar target/app-0.0.1-SNAPSHOT.jar
 
 
-### Tests
+### ⏯ Tests
 
 For now only a test that checks that the spring context
 can be loaded is in the source code. Execute with:
 
     $ mvn test
 
+A _GitHub Action_ workflow is configured as well
+as **CI** environment, check out [maven.yml](.github/workflows/maven.yml).
 
 Versions
 --------
@@ -116,7 +91,7 @@ Versions
 For now there are two versions, each one with its own branch:
 
 - `master`: main version with an in-memory database (H2) to quickly
-  launch the application without the need of a database installed.
+  launch the application without the need of a database installed (local tests).
 - `postgres`: modified version with PostgreSQL configured,
   ready for "production" usage.
 
@@ -127,10 +102,12 @@ About
 **Source code**: https://github.com/mrsarm/spring-react-crud
 
 **Authors**:
-* Mariano Ruiz <mrsarm@gmail.com>
+* Mariano Ruiz <mrsarm (at) gmail>
 
-**Original Authors**:
-* Greg Turnquist (Pivotal)
-* Pivotal committers and other contributors
+The goal was to learn React and using Spring as backend, so I started
+following this [guide](https://spring.io/guides/tutorials/react-and-spring-data-rest)
+from _Spring.io_ (Greg Turnquist and other authors from _Pivotal_), but I ended up
+rewriting  almost all from scratch and adding a lot of features, like Bootstrap,
+client side validations, routing, updating dependencies to major versions ...
 
 2015-2023  |  Apache-2.0
