@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2020 the original author or authors.
+ * Copyright 2015-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,6 @@
  */
 package ar.com.mrdev.app.user;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,7 +28,7 @@ import static ar.com.mrdev.app.user.User.ROLE_MANAGER;
 @RestController
 public class UserController {
 
-	@Autowired UserService userService;
+	final UserService userService;
 
 	/**
 	 * To update the profile without modifying the
@@ -40,5 +39,9 @@ public class UserController {
 	@PreAuthorize("hasRole('ROLE_MANAGER') or #user?.email == authentication?.name")
 	public User updateProfile(HttpServletRequest request, @PathVariable Long id, @Validated @RequestBody User user) {
 		return userService.updateProfile(id, user, request.isUserInRole(ROLE_MANAGER));
+	}
+
+	public UserController(UserService userService) {
+		this.userService = userService;
 	}
 }
