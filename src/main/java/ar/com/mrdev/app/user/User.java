@@ -20,15 +20,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import javax.persistence.*;
-import javax.validation.constraints.AssertTrue;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.AssertTrue;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import java.util.Arrays;
 import java.util.List;
 import static ar.com.mrdev.app.Constants.*;
-import static javax.validation.constraints.Pattern.Flag.CASE_INSENSITIVE;
+import static jakarta.validation.constraints.Pattern.Flag.CASE_INSENSITIVE;
 
 
 @Data
