@@ -25,6 +25,7 @@ import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import static ar.com.mrdev.app.Constants.*;
@@ -59,7 +60,10 @@ public class User {
 	@JsonIgnore @Transient @Getter(AccessLevel.NONE) @Setter(AccessLevel.NONE)
 	private transient String clearPassword;
 
-	private String[] roles = new String[] {};
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "users_roles", joinColumns = @JoinColumn(name = "id"))
+	@Column(name = "role")
+	private List<String> roles = new ArrayList<>();
 
 	public User() {}
 
@@ -69,7 +73,7 @@ public class User {
 		this.lastName = lastName;
 		this.description = description;
 		this.setPassword(password);
-		this.roles = roles;
+		this.roles = Arrays.asList(roles);
 	}
 
 	@AssertTrue(message = "size must be between 4 and 16")

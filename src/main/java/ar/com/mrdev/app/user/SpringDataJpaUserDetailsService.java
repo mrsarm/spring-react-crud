@@ -41,8 +41,11 @@ public class SpringDataJpaUserDetailsService implements UserDetailsService {
 		ar.com.mrdev.app.user.User user = this.repository.findByEmail(name);
 		if (user != null) {
 			log.info("User trying to access... username={}", name);
-			return new User(user.getEmail(), user.getPassword(),
-				AuthorityUtils.createAuthorityList(user.getRoles()));
+			return new User(
+				user.getEmail(),
+				user.getPassword(),
+				AuthorityUtils.createAuthorityList(user.getRoles().toArray(String[]::new))
+			);
 		}
 		log.info("User not found, username={}", name);
 		throw new UsernameNotFoundException("User not found");
