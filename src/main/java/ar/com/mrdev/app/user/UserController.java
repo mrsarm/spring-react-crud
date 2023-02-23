@@ -29,7 +29,7 @@ import static ar.com.mrdev.app.user.User.ROLE_MANAGER;
 @RestController
 public class UserController {
 
-	@Autowired UserService userService;
+	final UserService userService;
 
 	/**
 	 * To update the profile without modifying the
@@ -40,5 +40,9 @@ public class UserController {
 	@PreAuthorize("hasRole('ROLE_MANAGER') or #user?.email == authentication?.name")
 	public User updateProfile(HttpServletRequest request, @PathVariable Long id, @Validated @RequestBody User user) {
 		return userService.updateProfile(id, user, request.isUserInRole(ROLE_MANAGER));
+	}
+
+	public UserController(UserService userService) {
+		this.userService = userService;
 	}
 }
