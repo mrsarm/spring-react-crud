@@ -36,7 +36,7 @@ spring:
       naming:
         # camelCase to snake_case strategy when queries are created
         implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
-        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
     open-in-view: false
     show-sql: false
 
@@ -44,7 +44,10 @@ spring:
 ###############    development config   ###############
 ---
 spring:
-  profiles: development
+  config:
+    activate:
+      on-profile: development
+
   jpa:
     hibernate:
       ddl-auto: update  # Do NOT change this, for now `none' or `validate' allowed
@@ -53,7 +56,10 @@ spring:
 ###################   test config   ###################
 ---
 spring:
-  profiles: test
+  config:
+    activate:
+      on-profile: test
+
   jpa:
     hibernate:
       ddl-auto: create-drop # Do NOT set this in production
