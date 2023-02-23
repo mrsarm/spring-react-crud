@@ -16,11 +16,6 @@ class About extends React.Component {
         <ul>
           <li><a href="mailto:mrsarm@gmail.com">Mariano Ruiz</a></li>
         </ul>
-        <h4>Original Authors</h4>
-        <ul>
-          <li>Greg Turnquist <em>(Pivotal)</em></li>
-          <li><em>Pivotal committers and other contributors</em></li>
-        </ul>
         <p>
           <strong>Source Code</strong>:&nbsp;
           <a href="https://github.com/mrsarm/spring-react-crud"
@@ -28,7 +23,7 @@ class About extends React.Component {
             https://github.com/mrsarm/spring-react-crud
           </a>
         </p>
-        <address>2015-2020  |  Apache-2.0</address>
+        <address>2015 ‒ 2023  |  Apache-2.0</address>
         <Button color="link"><Link to="/">← Back to Users</Link></Button>
       </Container>
     )

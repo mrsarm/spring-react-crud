@@ -29,10 +29,10 @@
     "webpack-cli": "^5.0.1"
   },
   "scripts": {
-    "watch": "webpack --watch -d"
+    "watch": "webpack --watch"
   },
   "engines": {
-    "node": ">= 18.13.0",
+    "node": ">= 18.14.0",
     "npm": ">= 9.5.0"
   }
 }

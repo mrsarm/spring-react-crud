@@ -8,7 +8,8 @@ ReactJS in the frontend and Spring Data REST in the backend.
 
 ## 🚀 Stack
 
-- **Backend**: Java 17 LTS, Spring Boot 3 (web, security, JPA).
+- **Backend**: Java 17 LTS, Spring Boot 3 (web, security, JPA),
+  Postgres / H2 (or whatever DB is compatible with JPA).
 - **Frontend**: ReactJS, React Router, Bootstrap,
   Axios, Reactstrap, Node 18 / Npm / Webpack (build).
 
