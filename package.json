@@ -32,7 +32,7 @@
     "watch": "webpack --watch"
   },
   "engines": {
-    "node": ">= 18.13.0",
+    "node": ">= 18.14.0",
     "npm": ">= 9.5.0"
   }
 }
