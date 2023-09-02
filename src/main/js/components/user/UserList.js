@@ -40,7 +40,7 @@ class UserList extends React.Component {
     const navLinks = this.getNavLinks()
     return (
       <Container fluid>
-        <div className="float-right" title={this.state.createUserTooltip}>
+        <div className="float-end" title={this.state.createUserTooltip}>
           <Button color="success" tag={Link} className="d-print-none"
                   to="/users/create"
                   disabled={!this.state.allowCreateUser}>
