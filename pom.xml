@@ -59,7 +59,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.24</version>
+			<version>1.18.28</version>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
@@ -81,7 +81,7 @@
 			<plugin>
 				<groupId>com.github.eirslett</groupId>
 				<artifactId>frontend-maven-plugin</artifactId>
-				<version>1.12.1</version>
+				<version>1.13.4</version>
 				<configuration>
 					<installDirectory>target</installDirectory>
 				</configuration>
