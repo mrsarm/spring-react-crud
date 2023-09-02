@@ -8,12 +8,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.container, .container-fluid {
-  margin-top: 20px;
+nav {
+  margin-bottom: 1rem;
 }
 
 .container-message {
-  margin-top: 15px;
+  margin-top: 0.8rem;
   padding-left: 0;
   padding-right: 0;
 }
