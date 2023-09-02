@@ -28,7 +28,6 @@ public class SecurityConfig {
 		PasswordEncoder passwordEncoder,
 		SpringDataJpaUserDetailsService userDetailsService
 	) throws Exception {
-		System.out.println(userDetailsService.toString());
 		return http.getSharedObject(AuthenticationManagerBuilder.class)
 			.userDetailsService(userDetailsService)
 			.passwordEncoder(passwordEncoder)
