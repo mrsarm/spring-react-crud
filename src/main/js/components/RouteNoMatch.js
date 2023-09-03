@@ -1,9 +1,9 @@
-import React from "react"
-import {Alert, Container} from "reactstrap"
-import {Link, useLocation} from "react-router-dom"
+import React from 'react';
+import { Alert, Container } from 'reactstrap';
+import { Link, useLocation } from 'react-router-dom';
 
-function RouteNoMatch() {
-  let location = useLocation()
+export default function RouteNoMatch() {
+  let location = useLocation();
 
   return (
     <Container>
@@ -16,7 +16,5 @@ function RouteNoMatch() {
         </p>
       </Alert>
     </Container>
-  )
+  );
 }
-
-export default RouteNoMatch

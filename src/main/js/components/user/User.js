@@ -1,20 +1,20 @@
-import React from "react"
-import ReactDOM from "react-dom"
-import {Link, withRouter} from 'react-router-dom'
-import {get, post, put} from "../../client"
-import {applyEventToState} from "../../commons"
-import {Button, Container, Input, Label, Row} from "reactstrap"
-import { AvForm, AvGroup, AvInput, AvFeedback } from 'availity-reactstrap-validation-safe'
-import Loading from "../commons/Loading"
-import Message from "../commons/Message"
-import {reduceError} from "../../errors"
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Link, withRouter } from 'react-router-dom';
+import { get, post, put } from '../../client';
+import { applyEventToState } from '../../commons';
+import { Button, Container, Input, Label, Row } from 'reactstrap';
+import { AvForm, AvGroup, AvInput, AvFeedback } from 'availity-reactstrap-validation-safe';
+import Loading from '../commons/Loading';
+import Message from '../commons/Message';
+import { reduceError } from '../../errors';
 
 
 class User extends React.Component {
 
   constructor(props) {
-    super(props)
-    const isCreateUser = props.match.path === "/users/create"
+    super(props);
+    const isCreateUser = props.match.path === "/users/create";
     this.state = {
       user: {
         email: '',
@@ -28,10 +28,10 @@ class User extends React.Component {
       isSavingUser: false,
       error: null,
       showForm: isCreateUser
-    }
-    this.handleValidSubmit = this.handleValidSubmit.bind(this)
-    this.handleChange = this.handleChange.bind(this)
-    this.save = this.save.bind(this)
+    };
+    this.handleValidSubmit = this.handleValidSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.save = this.save.bind(this);
   }
 
   componentDidMount() {
@@ -41,19 +41,19 @@ class User extends React.Component {
         this.setState({
           user: response.data,
           isLoadingUser: false, showForm: true
-        })
+        });
       })
-      .catch(ex=> {
+      .catch(ex => {
         this.setState({
           error: reduceError(ex, "user", "get"),
           isLoadingUser: false, showForm: false
-        })
-      })
+        });
+      });
     }
   }
 
   handleChange(event) {
-    applyEventToState(event, this.state, "user", this.setState.bind(this))
+    applyEventToState(event, this.state, "user", this.setState.bind(this));
   }
 
   save() {
@@ -61,37 +61,37 @@ class User extends React.Component {
       return post({
         url: 'users',
         data: this.state.user
-      })
+      });
     } else {
       return put({
         url: this.state.user._links.self.href + '/profile',
         data: this.state.user
-      })
+      });
     }
   }
 
   handleValidSubmit(event, values) {
-    let password = ReactDOM.findDOMNode(this.refs["password"]).value.trim()
-    let newState
+    let password = ReactDOM.findDOMNode(this.refs["password"]).value.trim();
+    let newState;
     if (password) {
-      let user = {...this.state.user}
-      user.password = password
-      newState = {user: user, isSavingUser: true}
+      let user = { ...this.state.user };
+      user.password = password;
+      newState = { user: user, isSavingUser: true };
     } else {
       // user state was already updated, see `handleChange(event)`
-      newState = {isSavingUser: true}
+      newState = { isSavingUser: true };
     }
-    this.setState(newState, ()=>
+    this.setState(newState, () =>
       this.save()
         .then(response => {
-          this.props.history.push('/')
+          this.props.history.push('/');
         }).catch(ex =>
           this.setState({
             error: reduceError(ex, "user", "save"),
             isSavingUser: false
           })
         )
-    )
+    );
   }
 
   render() {
@@ -157,8 +157,8 @@ class User extends React.Component {
           </AvForm>
         }
       </Container>
-    )
+    );
   }
 }
 
-export default withRouter(User)
+export default withRouter(User);

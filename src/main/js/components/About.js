@@ -1,6 +1,6 @@
-import React from "react"
-import {Button, Container} from "reactstrap"
-import {Link, withRouter} from "react-router-dom"
+import React from 'react';
+import { Button, Container } from 'reactstrap';
+import { Link, withRouter } from 'react-router-dom';
 
 
 class About extends React.Component {
@@ -26,8 +26,8 @@ class About extends React.Component {
         <address>2015 ‒ 2023  |  Apache-2.0</address>
         <Button color="link"><Link to="/">← Back to Users</Link></Button>
       </Container>
-    )
+    );
   }
 }
 
-export default withRouter(About)
+export default withRouter(About);

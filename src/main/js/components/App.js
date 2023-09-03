@@ -3,25 +3,26 @@ import {
   Redirect,
   Route,
   Switch,
-} from "react-router-dom"
-import React from 'react'
-import UsersHome from "./user/UsersHome"
-import About from "./About"
-import User from "./user/User"
-import Navbar from "./Navbar"
-import RouteNoMatch from "./RouteNoMatch"
+} from 'react-router-dom';
+import React from 'react';
+import UsersHome from './user/UsersHome';
+import About from './About';
+import User from './user/User';
+import Navbar from './Navbar';
+import RouteNoMatch from './RouteNoMatch';
 
-class App extends React.Component {
+
+export default class App extends React.Component {
 
   constructor(props) {
-    super(props)
-    const loggedUserData = document.querySelector('#user-data').dataset
+    super(props);
+    const loggedUserData = document.querySelector('#user-data').dataset;
     this.state = {
       loggedUser: {
         name: loggedUserData.username,
         isAdmin: loggedUserData.isAdmin === 'true'
       }
-    }
+    };
   }
 
   render() {
@@ -44,8 +45,6 @@ class App extends React.Component {
           </Route>
         </Switch>
       </Router>
-    )
+    );
   }
 }
-
-export default App

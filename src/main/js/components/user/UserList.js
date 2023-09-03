@@ -1,43 +1,43 @@
-import React from "react"
-import {Button, Container, Pagination,
-        PaginationItem, PaginationLink, Table} from "reactstrap"
-import {Link, withRouter} from 'react-router-dom'
-import UserItem from './UserItem'
-import Loading from "../commons/Loading"
-import Message from "../commons/Message"
-import LoadingPagination from "../commons/LoadingPagination"
+import React from 'react';
+import { Button, Container, Pagination,
+         PaginationItem, PaginationLink, Table } from 'reactstrap';
+import { Link, withRouter } from 'react-router-dom';
+import UserItem from './UserItem';
+import Loading from '../commons/Loading';
+import Message from '../commons/Message';
+import LoadingPagination from '../commons/LoadingPagination';
 
 
 class UserList extends React.Component {
 
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       isLoadingPagination: props.isLoadingPagination || false,
       allowCreateUser: this.props.loggedUser.isAdmin,
       createUserTooltip: this.props.loggedUser.isAdmin ?
           'Add User' : 'Only "Manager" users are allowed to create other users'
-    }
-    this.handleNavFirst = this.handleNavFirst.bind(this)
-    this.handleNavPrev = this.handleNavPrev.bind(this)
-    this.handleNavNext = this.handleNavNext.bind(this)
-    this.handleNavLast = this.handleNavLast.bind(this)
+    };
+    this.handleNavFirst = this.handleNavFirst.bind(this);
+    this.handleNavPrev = this.handleNavPrev.bind(this);
+    this.handleNavNext = this.handleNavNext.bind(this);
+    this.handleNavLast = this.handleNavLast.bind(this);
   }
 
   _handleNavFirst(e, link) {
-    e.preventDefault()
-    this.setState({isLoadingPagination: true})
+    e.preventDefault();
+    this.setState({isLoadingPagination: true});
     this.props.onNavigate(this.props.links[link].href)
-              .then(()=>this.setState({isLoadingPagination: false}))
+              .then(() =>this.setState({isLoadingPagination: false}));
   }
 
-  handleNavFirst(e) { this._handleNavFirst(e, "first") }
-  handleNavPrev(e) { this._handleNavFirst(e, "prev") }
-  handleNavNext(e) { this._handleNavFirst(e, "next") }
-  handleNavLast(e) { this._handleNavFirst(e, "last") }
+  handleNavFirst(e) { this._handleNavFirst(e, "first"); }
+  handleNavPrev(e) { this._handleNavFirst(e, "prev"); }
+  handleNavNext(e) { this._handleNavFirst(e, "next"); }
+  handleNavLast(e) { this._handleNavFirst(e, "last"); }
 
   render() {
-    const navLinks = this.getNavLinks()
+    const navLinks = this.getNavLinks();
     return (
       <Container fluid>
         <div className="float-end" title={this.state.createUserTooltip}>
@@ -88,41 +88,41 @@ class UserList extends React.Component {
         }
         <Message error={this.props.error}/>
       </Container>
-    )
+    );
   }
 
   getNavLinks() {
-    const navLinks = []
+    const navLinks = [];
     if ("first" in this.props.links) {
       navLinks.push(
         <PaginationItem key="first">
           <PaginationLink first onClick={this.handleNavFirst} />
         </PaginationItem>
-      )
+      );
     }
     if ("prev" in this.props.links) {
       navLinks.push(
         <PaginationItem key="previous">
           <PaginationLink previous onClick={this.handleNavPrev} />
         </PaginationItem>
-      )
+      );
     }
     if ("next" in this.props.links) {
       navLinks.push(
         <PaginationItem key="next">
           <PaginationLink next onClick={this.handleNavNext} />
         </PaginationItem>
-      )
+      );
     }
     if ("last" in this.props.links) {
       navLinks.push(
         <PaginationItem key="last">
           <PaginationLink last onClick={this.handleNavLast} />
         </PaginationItem>
-      )
+      );
     }
-    return navLinks
+    return navLinks;
   }
 }
 
-export default withRouter(UserList)
+export default withRouter(UserList);
