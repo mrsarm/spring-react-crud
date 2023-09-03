@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function Navbar(props) {
+export default function Navbar({ loggedUser }) {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
@@ -27,7 +27,7 @@ export default function Navbar(props) {
                  id="navbarDropdown"
                  role="button" data-bs-toggle="dropdown"
                  aria-expanded="false">
-                {props.loggedUser.name}
+                {loggedUser.name}
               </a>
               <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a className="dropdown-item" href="/logout">Log-out</a>

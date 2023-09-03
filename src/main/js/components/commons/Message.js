@@ -5,9 +5,9 @@ import { Alert, Container } from 'reactstrap';
  * React Component to show a message
  * in the UI: errors, warning, info or success.
  */
-export default class Message extends React.Component {
+export default function Message({ info, warning, error, success, display }) {
 
-  renderMessage(msg) {
+  function renderMessage(msg) {
     if (typeof msg == 'string') {
       return msg;
     } else {
@@ -20,32 +20,31 @@ export default class Message extends React.Component {
     }
   }
 
-  render() {
-    const display = this.props.display !== undefined ? this.props.display : true;
-    if (!display) return '';
-    return (
-      <Container className="container-message">
-        {this.props.error &&
-          <Alert color="danger" key="error">
-            {this.renderMessage(this.props.error)}
-          </Alert>
-        }
-        {this.props.success &&
-          <Alert color="success" key="success">
-            {this.renderMessage(this.props.success)}
-          </Alert>
-        }
-        {this.props.info &&
-          <Alert color="info" key="info">
-            {this.renderMessage(this.props.info)}
-          </Alert>
-        }
-        {this.props.warning &&
-          <Alert color="warning" key="warning">
-            {this.renderMessage(this.props.warning)}
-          </Alert>
-        }
-      </Container>
-    );
-  }
+  const noDisplay = display !== undefined ? display : true;
+  if (noDisplay) return '';
+
+  return (
+    <Container className="container-message">
+      {error &&
+        <Alert color="danger" key="error">
+          {renderMessage(error)}
+        </Alert>
+      }
+      {success &&
+        <Alert color="success" key="success">
+          {renderMessage(success)}
+        </Alert>
+      }
+      {info &&
+        <Alert color="info" key="info">
+          {renderMessage(info)}
+        </Alert>
+      }
+      {warning &&
+        <Alert color="warning" key="warning">
+          {renderMessage(warning)}
+        </Alert>
+      }
+    </Container>
+  );
 }
