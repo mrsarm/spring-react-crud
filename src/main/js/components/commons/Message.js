@@ -1,53 +1,56 @@
-import React from "react"
-import {Alert, Container} from "reactstrap"
+import React from 'react';
+import { Alert, Container } from 'reactstrap';
 
 /**
  * React Component to show a message
  * in the UI: errors, warning, info or success.
  */
-class Message extends React.Component {
+export default function Message({ info, warning, error, success, display }) {
 
-  renderMessage(msg) {
-    if (typeof msg == 'string') {
-      return msg
-    } else {
+  if (display !== undefined && !display) {
+    return '';
+  }
+
+  let color;
+  let msg;
+  if (error) {
+    color = 'danger';
+    msg = error;
+  } else if (success) {
+    color = 'success';
+    msg = success;
+  } else if (info) {
+    color = 'info';
+    msg = info;
+  } else if (warning) {
+    color = 'warning';
+    msg = warning;
+  } else {
+    return '';
+  }
+
+  function renderMessage(msg) {
+    if (msg.title && msg.message) {
       return (
-        <>
-          <h5><strong>{msg.title}</strong></h5>
-          <span>{msg.message}</span>
-        </>
-      )
+          <>
+            <h5><strong>{msg.title}</strong></h5>
+            <span>{msg.message}</span>
+          </>
+      );
+    }
+    if (msg.message) {
+      return <span>{msg.message}</span>;
+    }
+    if (typeof msg === 'string') {
+      return <span>{msg}</span>;
     }
   }
 
-  render() {
-    const display = this.props.display !== undefined ? this.props.display : true
-    if (!display) return ''
-    return (
-      <Container className="container-message">
-        {this.props.error &&
-          <Alert color="danger" key="error">
-            {this.renderMessage(this.props.error)}
-          </Alert>
-        }
-        {this.props.success &&
-          <Alert color="success" key="success">
-            {this.renderMessage(this.props.success)}
-          </Alert>
-        }
-        {this.props.info &&
-          <Alert color="info" key="info">
-            {this.renderMessage(this.props.info)}
-          </Alert>
-        }
-        {this.props.warning &&
-          <Alert color="warning" key="warning">
-            {this.renderMessage(this.props.warning)}
-          </Alert>
-        }
-      </Container>
-    )
-  }
+  return (
+    <Container className="container-message">
+      <Alert color={color} key={color}>
+          {renderMessage(msg)}
+      </Alert>
+    </Container>
+  );
 }
-
-export default Message
