@@ -71,18 +71,30 @@ function getTargetValue(target, emptyToNull = false) {
  * @param event with the value, it will be processed with
  *        `#getTargetValue(target)` in case it has multi-values.
  * @param state the current state
+ * @param setState the function to change the state
  * @param stateElName the key at the root of the state to change,
  *        e.g. "user", but it can be also a path e.g. if `stateElName` is
  *        "user.profile" and `event.target.name` is "username", the
  *        value from the `event` object will be applied to
  *        the path `state.user.profile.username`.
- * @param setState the function to change the state
+ *        If stateElName is "" (default), the value is applied at root level,
+ *        e.g. in the same example where `event.target.name` is "username"
+ *        the path will be `state.username`.
  */
-export function applyEventToState(event, state, stateElName, setState) {
-  const stateEl = _.cloneDeep(state[stateElName]);
+export function applyEventToState(event, state, setState, stateElName = '') {
+  let stateEl;
+  if (stateElName === '') {
+      stateEl = _.cloneDeep(state);
+  } else {
+      stateEl = _.cloneDeep(state[stateElName]);
+  }
   const name = event.target.name;
   const value = getTargetValue(event.target, true);
   _.set(stateEl, name, value);
-  const stateElNameRoot = stateElName.split('.')[0];
-  setState({[stateElNameRoot]: stateEl});
+  if (stateElName === '') {
+    setState(stateEl);
+  } else {
+    const stateElNameRoot = stateElName.split('.')[0];
+    setState({[stateElNameRoot]: stateEl});
+  }
 }

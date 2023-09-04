@@ -17,6 +17,7 @@
     "lodash": "^4.17.21",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
+    "react-router": "^5.3.4",
     "react-router-dom": "^5.3.4",
     "reactstrap": "^9.2.0"
   },
