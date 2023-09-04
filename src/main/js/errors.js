@@ -1,17 +1,22 @@
 /**
  * Reduce an error to an object with
- * a title and a message to show to the user. Eg.:
+ * a title and a message to show in the UI.
  *
- *     {
- *       "title": "An error occurred",
- *       "message": "Cannot update the user",
- *       "cause": ex
- *     }
+ * E.g.:
+ *
+ * ```
+ * {
+ *   "title": "An error occurred",
+ *   "message": "Cannot update the user.",
+ *   "cause": ex
+ * }
+ * ```
  *
  * @param ex the exception or an error message string
  * @param entity the object name related with the error, e.g. "user", "inbox"...
  * @param action the event that caused the error, e.g. "update", "delete"...
- * @param logger (default `console.error`) a function to log unknown errors
+ * @param logger (default `console.error`) if the error is unknown it will
+ *               be logged out with this logger
  */
 export function reduceError(
   ex,
@@ -19,7 +24,7 @@ export function reduceError(
   action='process',
   logger= console.error
 ) {
-  if (typeof ex == 'string') {
+  if (typeof ex === 'string') {
     return {
       title: 'An error occurred',
       message: ex
@@ -27,7 +32,7 @@ export function reduceError(
   }
   // Error does not come from a response
   if (!ex.response) {
-    logger(`Error ${action} ${entity} -`, ex);
+    if (logger) logger(`Error ${action} ${entity} - `, ex);
     if (ex.message === 'Network Error') {
       return {
         title: '\uD83D\uDD0C Network Error',
@@ -56,6 +61,13 @@ export function reduceError(
       cause: ex
     };
   }
+  if (ex.response.status === 404) {
+    return {
+      title: 'Record not found',
+      message: `Unable to ${action} the ${entity}. Either it doesn't exist or it has been deleted.`,
+      cause: ex
+    };
+  }
   if (ex.response.status === 412) {
     return {
       title: 'Access denied',
@@ -64,7 +76,7 @@ export function reduceError(
     };
   }
 
-  logger(`Unknown error ${action} ${entity} -`, ex);
+  if (logger) logger(`Unknown error ${action} ${entity} - `, ex);
   return  {
     title: 'Unknown error',
     message: `An error occurred trying to ${action} the ${entity}. Try again later.`,

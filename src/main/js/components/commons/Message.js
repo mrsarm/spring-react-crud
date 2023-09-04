@@ -7,44 +7,50 @@ import { Alert, Container } from 'reactstrap';
  */
 export default function Message({ info, warning, error, success, display }) {
 
+  if (display !== undefined && !display) {
+    return '';
+  }
+
+  let color;
+  let msg;
+  if (error) {
+    color = 'danger';
+    msg = error;
+  } else if (success) {
+    color = 'success';
+    msg = success;
+  } else if (info) {
+    color = 'info';
+    msg = info;
+  } else if (warning) {
+    color = 'warning';
+    msg = warning;
+  } else {
+    return '';
+  }
+
   function renderMessage(msg) {
-    if (typeof msg == 'string') {
-      return msg;
-    } else {
+    if (msg.title && msg.message) {
       return (
-        <>
-          <h5><strong>{msg.title}</strong></h5>
-          <span>{msg.message}</span>
-        </>
+          <>
+            <h5><strong>{msg.title}</strong></h5>
+            <span>{msg.message}</span>
+          </>
       );
+    }
+    if (msg.message) {
+      return <span>{msg.message}</span>;
+    }
+    if (typeof msg === 'string') {
+      return <span>{msg}</span>;
     }
   }
 
-  const noDisplay = display !== undefined ? display : true;
-  if (noDisplay) return '';
-
   return (
     <Container className="container-message">
-      {error &&
-        <Alert color="danger" key="error">
-          {renderMessage(error)}
-        </Alert>
-      }
-      {success &&
-        <Alert color="success" key="success">
-          {renderMessage(success)}
-        </Alert>
-      }
-      {info &&
-        <Alert color="info" key="info">
-          {renderMessage(info)}
-        </Alert>
-      }
-      {warning &&
-        <Alert color="warning" key="warning">
-          {renderMessage(warning)}
-        </Alert>
-      }
+      <Alert color={color} key={color}>
+          {renderMessage(msg)}
+      </Alert>
     </Container>
   );
 }
