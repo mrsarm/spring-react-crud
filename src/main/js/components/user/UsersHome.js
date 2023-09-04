@@ -69,9 +69,8 @@ function UsersHome({ loggedUser }) {
     <Container fluid>
       <UserList users={users}
                 links={links}
-                PAGE_SIZE={PAGE_SIZE}
                 isLoadingUsers={isLoadingUsers}
-                isLoadingPagination={isLoadingPagination}
+                isLoading={isLoadingPagination}
                 error={error}
                 loggedUser={loggedUser}
                 onNavigate={onNavigate}
