@@ -1,50 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { client } from '../../client';
 import { Container } from 'reactstrap';
 import UserList from './UserList';
 import { withRouter } from 'react-router-dom';
 import { reduceError } from '../../errors';
 
-class UsersHome extends React.Component {
+const PAGE_SIZE = 20;
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      users: [],
-      pageSize: 20,
-      links: [],
-      isLoadingUsers: true,
-      isLoadingPagination: false,
-      error: null
-    };
-    this.onDelete = this.onDelete.bind(this);
-    this.onNavigate = this.onNavigate.bind(this);
+function UsersHome({ loggedUser }) {
+  const [users, setUsers] = useState([]);
+  const [links, setLinks] = useState([]);
+  const [isLoadingUsers, setIsLoadingUsers] = useState(true);
+  const [isLoadingPagination, setIsLoadingPagination] = useState(false);
+  const [error, setError] = useState(null);
+
+  async function loadFromServer() {
+    try {
+      const response = await client({ url: 'users', params: { size: PAGE_SIZE } });
+      setUsers(response.data._embedded.users);
+      setLinks(response.data._links);
+      setIsLoadingUsers(false);
+      setError(null);
+      return response;
+    } catch(ex) {
+      setError(reduceError(ex, "users", "get"));
+      setIsLoadingUsers(false);
+      setIsLoadingPagination(false);
+    }
   }
 
-  loadFromServer(pageSize) {
-    return client({ url: 'users', params: { size: this.state.pageSize } })
-      .then(response => {
-        this.setState({
-          users: response.data._embedded.users,
-          links: response.data._links,
-          pageSize: pageSize,
-          isLoadingUsers: false,
-          error: null
-        });
-        return response;
-      })
-      .catch(ex => {
-        this.setState({
-          error: reduceError(ex, "users", "get"),
-          isLoadingUsers: false, isLoadingPagination: false
-        });
-      });
-  }
-
-  onDelete(user) {
-    return client({ method: 'delete', url: user._links.self.href }).then(resp =>
-      this.loadFromServer(this.state.pageSize)
-    ).catch(ex => {
+  async function onDelete(user) {
+    try {
+      await client({method: 'delete', url: user._links.self.href});
+      await loadFromServer();
+    } catch(ex) {
       if (ex.response.status === 403) {
         alert("Access DENIED: You are not authorized to " +
               "delete the user with email " + user.email);
@@ -54,46 +43,41 @@ class UsersHome extends React.Component {
         alert('Unexpected error');
       }
       throw ex;
-    });
+    }
   }
 
-  componentDidMount() {
-    this.loadFromServer(this.state.pageSize);
+  useEffect(() => {
+    loadFromServer();
+  }, []);
+
+  async function onNavigate(navUri) {
+    try {
+      const userCollection = await client.get(navUri);
+      setUsers(userCollection.data._embedded.users);
+      setLinks(userCollection.data._links);
+      setIsLoadingUsers(false);
+      setIsLoadingPagination(false);
+      setError(null);
+    } catch(ex) {
+      setError(reduceError(ex, "users", "get"));
+      setIsLoadingUsers(false);
+      setIsLoadingPagination(false);
+    }
   }
 
-  onNavigate(navUri) {
-    return client.get(navUri).then(userCollection => {
-      this.setState({
-        users: userCollection.data._embedded.users,
-        pageSize: this.state.pageSize,
-        links: userCollection.data._links,
-        isLoadingUsers: false, isLoadingPagination: false,
-        error: null
-      });
-    })
-    .catch(ex => {
-      this.setState({
-        error: reduceError(ex, "users", "get"),
-        isLoadingUsers: false, isLoadingPagination: false
-      });
-    });
-  }
-
-  render() {
-    return (
-      <Container fluid>
-        <UserList users={this.state.users}
-                  links={this.state.links}
-                  pageSize={this.state.pageSize}
-                  isLoadingUsers={this.state.isLoadingUsers}
-                  isLoadingPagination={this.state.isLoadingPagination}
-                  error={this.state.error}
-                  loggedUser={this.props.loggedUser}
-                  onNavigate={this.onNavigate}
-                  onDelete={this.onDelete}/>
-      </Container>
-    );
-  }
+  return (
+    <Container fluid>
+      <UserList users={users}
+                links={links}
+                PAGE_SIZE={PAGE_SIZE}
+                isLoadingUsers={isLoadingUsers}
+                isLoadingPagination={isLoadingPagination}
+                error={error}
+                loggedUser={loggedUser}
+                onNavigate={onNavigate}
+                onDelete={onDelete} />
+    </Container>
+  );
 }
 
 export default withRouter(UsersHome);
