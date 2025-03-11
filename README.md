@@ -8,7 +8,7 @@ ReactJS in the frontend and Spring Data REST in the backend.
 
 ## 🚀 Stack
 
-- **Backend**: Java 17 LTS, Spring Boot 3 (web, security, JPA),
+- **Backend**: Java 21 LTS, Spring Boot 3 (web, security, JPA),
   Postgres / H2 (or whatever DB is compatible with JPA).
 - **Frontend**: ReactJS, React Router, Bootstrap,
   Axios, Reactstrap, Node 18 / Npm / Webpack (build).
@@ -16,7 +16,7 @@ ReactJS in the frontend and Spring Data REST in the backend.
 
 ### ⚙️ Requirements
 
-- **JDK 17+**
+- **JDK 21+**
 - **Maven 3+**, or you can use the script `./mvnw` instead that it will install
   Maven 3.9 in the user space automatically if the required version isn't there
 
@@ -111,4 +111,4 @@ from _Spring.io_ (Greg Turnquist and other authors from _Pivotal_), but I ended 
 rewriting  almost all from scratch and adding a lot of features, like Bootstrap,
 client side validations, routing, updating dependencies to major versions ...
 
-2015-2023  |  Apache-2.0
+2015-2025  |  Apache-2.0
